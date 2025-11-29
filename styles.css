@@ -22,8 +22,8 @@
     --gradient-card: linear-gradient(145deg, #1A1A2E 0%, #16213E 100%);
     
     /* Typography */
-    --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -81,7 +81,7 @@ body.light-mode::before {
 }
 
 html {
-    font-size: 16px;
+    font-size: 18px;
     scroll-behavior: smooth;
     /* Ngăn text size adjustment trên iOS */
     -webkit-text-size-adjust: 100%;
@@ -139,7 +139,10 @@ body::before {
 .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--spacing-sm);
+    flex: 1;
+    text-align: center;
 }
 
 .btn-theme {
@@ -188,13 +191,14 @@ body::before {
 
 .logo h1 {
     font-family: var(--font-display);
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 .tagline {
@@ -893,7 +897,7 @@ body::before {
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
     html {
-        font-size: 15px;
+        font-size: 17px;
     }
     
     body {
@@ -906,7 +910,7 @@ body::before {
     
     .header {
         padding: var(--spacing-md) var(--spacing-sm);
-        padding-top: calc(var(--spacing-md) + env(safe-area-inset-top, 0px));
+        padding-top: calc(var(--spacing-md) + 60px + env(safe-area-inset-top, 0px));
     }
     
     .header-top {
@@ -925,8 +929,9 @@ body::before {
     }
     
     .logo h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         letter-spacing: 0.5px;
+        text-align: center;
     }
     
     .tagline {
@@ -935,13 +940,16 @@ body::before {
     }
     
     .btn-theme {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 40px;
-        height: 40px;
+        position: fixed;
+        right: var(--spacing-md);
+        top: var(--spacing-md);
+        transform: none;
+        width: 44px;
+        height: 44px;
         flex-shrink: 0;
+        z-index: 1000;
+        background: var(--color-bg-card);
+        box-shadow: var(--shadow-md);
     }
     
     .main-container {
@@ -1164,16 +1172,17 @@ body::before {
 /* ===== Mobile Small (≤ 480px) ===== */
 @media (max-width: 480px) {
     html {
-        font-size: 14px;
+        font-size: 16px;
     }
     
     .header {
         padding: var(--spacing-sm) var(--spacing-xs);
-        padding-top: calc(var(--spacing-sm) + env(safe-area-inset-top, 0px));
+        padding-top: calc(var(--spacing-sm) + 60px + env(safe-area-inset-top, 0px));
     }
     
     .logo h1 {
-        font-size: 1.3rem;
+        font-size: 1.6rem;
+        text-align: center;
     }
     
     .tagline {
@@ -1235,11 +1244,12 @@ body::before {
 @media (max-width: 768px) and (orientation: landscape) {
     .header {
         padding: var(--spacing-xs) var(--spacing-sm);
-        padding-top: calc(var(--spacing-xs) + env(safe-area-inset-top, 0px));
+        padding-top: calc(var(--spacing-xs) + 60px + env(safe-area-inset-top, 0px));
     }
     
     .logo h1 {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        text-align: center;
     }
     
     .tagline {

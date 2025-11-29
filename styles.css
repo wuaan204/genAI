@@ -92,10 +92,10 @@ body {
     font-family: var(--font-body);
     background: var(--gradient-bg);
     color: var(--color-text-primary);
-    min-height: 100vh;
-    min-height: -webkit-fill-available; /* iOS Safari */
+    height: 100vh;
+    height: -webkit-fill-available; /* iOS Safari */
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow: hidden;
     /* Cải thiện rendering trên mobile */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -170,9 +170,18 @@ body::before {
 
 .theme-icon {
     font-size: 1.3rem;
-    transition: transform 0.3s ease;
-    color: var(--color-text-primary);
+    transition: transform 0.3s ease, color 0.3s ease;
     line-height: 1;
+}
+
+/* Light mode: icon tối màu */
+body.light-mode .theme-icon {
+    color: #1E293B;
+}
+
+/* Dark mode: icon sáng màu */
+body:not(.light-mode) .theme-icon {
+    color: #F8FAFC;
 }
 
 .btn-theme:hover .theme-icon {
@@ -215,7 +224,9 @@ body::before {
     max-width: 1400px;
     margin: 0 auto;
     padding: var(--spacing-lg);
-    min-height: calc(100vh - 140px);
+    height: calc(100vh - 140px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media (max-width: 1024px) {
@@ -897,7 +908,11 @@ body::before {
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
     html {
-        font-size: 17px;
+        font-size: 19px;
+    }
+    
+    body {
+        font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
     }
     
     body {
@@ -906,6 +921,9 @@ body::before {
         padding-bottom: env(safe-area-inset-bottom);
         padding-left: env(safe-area-inset-left);
         padding-right: env(safe-area-inset-right);
+        height: 100vh;
+        height: -webkit-fill-available;
+        overflow: hidden;
     }
     
     .header {
@@ -940,10 +958,10 @@ body::before {
     }
     
     .btn-theme {
-        position: fixed;
-        right: var(--spacing-md);
-        top: var(--spacing-md);
-        transform: none;
+        position: fixed !important;
+        right: var(--spacing-md) !important;
+        top: var(--spacing-md) !important;
+        transform: none !important;
         width: 44px;
         height: 44px;
         flex-shrink: 0;
@@ -952,10 +970,22 @@ body::before {
         box-shadow: var(--shadow-md);
     }
     
+    /* Light mode: icon tối màu trên mobile */
+    body.light-mode .btn-theme .theme-icon {
+        color: #1E293B !important;
+    }
+    
+    /* Dark mode: icon sáng màu trên mobile */
+    body:not(.light-mode) .btn-theme .theme-icon {
+        color: #F8FAFC !important;
+    }
+    
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        min-height: calc(100vh - 120px);
+        height: calc(100vh - 120px);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .chat-section,
@@ -1172,7 +1202,11 @@ body::before {
 /* ===== Mobile Small (≤ 480px) ===== */
 @media (max-width: 480px) {
     html {
-        font-size: 16px;
+        font-size: 18px;
+    }
+    
+    body {
+        font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
     }
     
     .header {
@@ -1192,6 +1226,9 @@ body::before {
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .section-header h2 {
@@ -1259,6 +1296,9 @@ body::before {
     .main-container {
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-xs);
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .map-container {

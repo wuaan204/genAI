@@ -69,3 +69,6 @@ package-lock.json
 dist/
 build/
 
+# Frontend config - Comment out để có thể commit config.js với giá trị mặc định
+# frontend/config.js
+

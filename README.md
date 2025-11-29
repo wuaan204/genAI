@@ -268,6 +268,20 @@ Có 2 cách:
 
 2. **Thêm vào sample_data.json**: Chỉnh sửa file `backend/sample_data.json` theo format có sẵn
 
+## Deploy lên Web
+
+Để deploy ứng dụng lên web và chia sẻ với mọi người:
+
+**Cách nhanh (10 phút):**
+- Xem [QUICK_START_DEPLOY.md](QUICK_START_DEPLOY.md)
+
+**Hướng dẫn chi tiết:**
+- Xem [DEPLOY.md](DEPLOY.md)
+
+**Tóm tắt:**
+- Frontend → GitHub Pages (miễn phí)
+- Backend → Render.com (miễn phí)
+
 ## License
 
 MIT License - Sử dụng tự do cho mục đích học tập và nghiên cứu.

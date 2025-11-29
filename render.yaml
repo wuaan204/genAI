@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: fashion-finder-backend
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: GEMINI_API_KEY
+        sync: false  # Phải set thủ công trong Render dashboard
+      - key: GOOGLE_SHEETS_ID
+        sync: false  # Tùy chọn, set nếu muốn dùng Google Sheets
+      - key: PRIORITY_RADIUS_KM
+        value: 20.0
+      - key: MAX_RADIUS_KM
+        value: 500.0
+      - key: MAX_SHOPS
+        value: 30
+

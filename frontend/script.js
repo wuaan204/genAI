@@ -4,8 +4,31 @@
  */
 
 // ===== Configuration =====
+// Tự động detect API URL: localhost nếu chạy local, hoặc lấy từ environment/config
+function getApiBaseUrl() {
+    // Nếu có biến môi trường từ build (cho production)
+    if (typeof window.API_BASE_URL !== 'undefined' && window.API_BASE_URL) {
+        return window.API_BASE_URL;
+    }
+    
+    // Nếu đang chạy trên localhost, dùng localhost:8000
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:8000';
+    }
+    
+    // Production: lấy từ meta tag hoặc mặc định (sẽ được thay thế khi deploy)
+    const metaApiUrl = document.querySelector('meta[name="api-base-url"]');
+    if (metaApiUrl) {
+        return metaApiUrl.getAttribute('content');
+    }
+    
+    // Fallback: dùng relative URL (cùng origin với frontend)
+    // Hoặc trả về empty string để dùng relative paths
+    return window.location.origin.replace(/\/$/, '');
+}
+
 const CONFIG = {
-    API_BASE_URL: 'http://localhost:8000',
+    API_BASE_URL: getApiBaseUrl(),
     DEFAULT_LOCATION: { lat: 21.0285, lon: 105.8542 },
     MAP_ZOOM: 14
 };

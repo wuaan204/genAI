@@ -1,369 +1,1378 @@
-/* =========================================
-   1. VARIABLES & THEME SETUP
-   ========================================= */
-   :root {
-    /* Color Palette */
-    --color-primary: #8B5CF6;
-    --color-primary-dark: #7C3AED;
-    --color-primary-light: #A78BFA;
-    --color-secondary: #EC4899;
-    --color-accent: #F59E0B;
-    
-    /* Neutral Colors */
-    --color-bg-dark: #0F0F1A;
-    --color-bg-card: #1A1A2E;
-    --color-bg-card-hover: #252542;
-    --color-text-primary: #F8FAFC;
-    --color-text-secondary: #94A3B8;
-    --color-text-muted: #64748B;
-    --color-border: #334155;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
-    --gradient-bg: linear-gradient(180deg, #0F0F1A 0%, #1A1A2E 50%, #16213E 100%);
-    --gradient-card: linear-gradient(145deg, #1A1A2E 0%, #16213E 100%);
-    
-    /* Typography */
-    --font-display: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    
-    /* Radius & Shadows */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-full: 9999px;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.3);
+/* ===== CSS Variables - Dark Mode (Default) ===== */ :root {
+  /* */
+  --color-primary: #8B5CF6;
+  --color-primary-dark: #7C3AED;
+  --color-primary-light: #A78BFA;
+  --color-secondary: #EC4899;
+  --color-accent: #F59E0B;
+  /* */
+  --color-bg-dark: #0F0F1A;
+  --color-bg-card: #1A1A2E;
+  --color-bg-card-hover: #252542;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-border: #334155;
+  /* */
+  --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  --gradient-bg: linear-gradient(180deg, #0F0F1A 0%, #1A1A2E 50%, #16213E 100%);
+  --gradient-card: linear-gradient(145deg, #1A1A2E 0%, #16213E 100%);
+  /* */
+  --font-display: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  /* */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  /* */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.3);
+
 }
+  /* */
+  body.light-mode {
+  --color-bg-dark: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-bg-card-hover: #F1F5F9;
+  --color-text-primary: #1E293B;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+  --color-border: #E2E8F0;
+  --gradient-bg: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 50%, #CBD5E1 100%);
+  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F1F5F9 100%);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.2);
 
-/* Light Mode Variables */
-body.light-mode {
-    --color-bg-dark: #F8FAFC;
-    --color-bg-card: #FFFFFF;
-    --color-bg-card-hover: #F1F5F9;
-    --color-text-primary: #1E293B;
-    --color-text-secondary: #475569;
-    --color-text-muted: #94A3B8;
-    --color-border: #E2E8F0;
-    --gradient-bg: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 50%, #CBD5E1 100%);
-    --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F1F5F9 100%);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.2);
 }
-
-/* =========================================
-   2. BASE STYLES
-   ========================================= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-    font-size: 16px; /* Chuẩn hóa font size */
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-}
-
-body {
-    font-family: var(--font-body);
-    background: var(--gradient-bg);
-    color: var(--color-text-primary);
-    
-    /* Layout Flexbox toàn trang - Cốt lõi để fix lỗi layout */
-    display: flex;
-    flex-direction: column;
-    height: 100vh; 
-    height: -webkit-fill-available; /* Hỗ trợ iOS */
-    overflow: hidden; /* Ngăn scroll body, chỉ scroll nội dung con */
-    
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Background Pattern */
-body::before {
-    content: '';
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-    pointer-events: none; z-index: -1;
-}
-
 body.light-mode::before {
-    background-image: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
-}
+  background-image: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
 
-/* =========================================
-   3. HEADER
-   ========================================= */
-.header {
-    flex-shrink: 0; /* Header không bao giờ bị co lại */
-    text-align: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-bg-card); /* Nền đặc để không lộ nội dung khi scroll */
-    border-bottom: 1px solid var(--color-border);
-    z-index: 10;
-    position: relative;
-    /* Padding an toàn cho tai thỏ */
-    padding-top: calc(8px + env(safe-area-inset-top, 0px));
 }
+  /* ===== Base Styles ===== */ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
+}
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+  /* */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+}
+body {
+  font-family: var(--font-body);
+  background: var(--gradient-bg);
+  color: var(--color-text-primary);
+  height: 100vh;
+  height: -webkit-fill-available;
+  /* */
+  line-height: 1.6;
+  overflow: hidden;
+  /* */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* */
+  overscroll-behavior-y: contain;
+
+}
+  /* */
+  body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+
+}
+  /* ===== Header ===== */ .header {
+  text-align: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.15) 0%, transparent 100%);
+  border-bottom: 1px solid var(--color-border);
+
+}
 .header-top {
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+
 }
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  text-align: center;
 
-.logo { display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm); }
-
-.logo h1 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0;
 }
-
-.logo-icon { font-size: 1.5rem; animation: sparkle 2s ease-in-out infinite; }
-@keyframes sparkle { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(10deg); } }
-
-.tagline {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem; margin: 0;
-}
-
-/* Theme Toggle Button */
 .btn-theme {
-    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-    width: 40px; height: 40px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    background: var(--color-bg-card-hover);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    color: var(--color-text-primary);
-}
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-card);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-/* =========================================
-   4. MAIN CONTAINER
-   ========================================= */
-.main-container {
-    flex: 1; /* Chiếm toàn bộ không gian còn lại sau header */
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Desktop: 2 cột */
-    gap: var(--spacing-lg);
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: var(--spacing-md);
-    overflow: hidden; /* Desktop không scroll container chính */
 }
+.btn-theme:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-glow);
 
-/* =========================================
-   5. SECTIONS (Map & Chat)
-   ========================================= */
-.map-section, .chat-section {
-    background: var(--gradient-card);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-    display: flex; flex-direction: column;
-    height: 100%;
-    overflow: hidden; /* Nội dung dài sẽ scroll bên trong */
 }
+.theme-icon {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  line-height: 1;
 
-.section-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: var(--spacing-md);
-    flex-shrink: 0;
 }
-.section-header h2 { font-size: 1.25rem; font-weight: 600; margin: 0; }
+  /* */
+  body.light-mode .theme-icon {
+  color: #1E293B;
 
-/* --- Map Elements --- */
+}
+  /* */
+  body:not(.light-mode) .theme-icon {
+  color: #F8FAFC;
+
+}
+.btn-theme:hover .theme-icon {
+  transform: rotate(20deg);
+
+}
+.logo-icon {
+  font-size: 2rem;
+  animation: sparkle 2s ease-in-out infinite;
+
+}
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+
+  }
+  50% {
+    transform: scale(1.1) rotate(10deg);
+
+  }
+}
+.logo h1 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin: 0;
+
+}
+.tagline {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  margin-top: var(--spacing-xs);
+
+}
+  /* ===== Main Container ===== */ .main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: stretch;
+
+}
+@media (max-width: 1024px) {
+  .main-container {
+    grid-template-columns: 1fr;
+
+  }
+}
+  /* ===== Section Styles ===== */ .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+
+}
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+}
+  /* ===== Map Section ===== */ .map-section {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 180px);
+
+}
 .map-container {
-    flex: 1; min-height: 300px;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    position: relative; z-index: 1;
+  flex: 1;
+  min-height: 400px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  /* */
+  touch-action: pan-x pan-y pinch-zoom;
+  position: relative;
+
 }
+.header-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
 
-.header-buttons { display: flex; gap: var(--spacing-sm); }
-
+}
 .btn-locate, .btn-search-shops, .btn-settings {
-    display: flex; align-items: center; gap: 6px;
-    padding: 6px 12px;
-    border: none; border-radius: var(--radius-full);
-    color: white; font-size: 0.85rem; font-weight: 600;
-    cursor: pointer; transition: transform 0.2s;
-}
-.btn-locate { background: var(--gradient-primary); }
-.btn-search-shops { background: linear-gradient(135deg, #10B981, #059669); }
-.btn-settings { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-full);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 
-/* Shops List & Settings */
-.shops-list, .settings-panel {
-    margin-top: var(--spacing-sm);
-    padding: var(--spacing-sm);
-    background: var(--color-bg-card-hover);
-    border-radius: var(--radius-md);
-    max-height: 250px; overflow-y: auto;
 }
+.btn-locate {
+  background: var(--gradient-primary);
 
-.shop-card {
-    background: var(--color-bg-card);
-    padding: var(--spacing-sm); margin-bottom: 8px;
-    border-radius: var(--radius-sm); border: 1px solid var(--color-border);
 }
+.btn-search-shops {
+  background: linear-gradient(135deg, #10B981, #059669);
 
-/* --- Chat Elements --- */
+}
+.btn-settings {
+  background: linear-gradient(135deg, #6366F1, #4F46E5);
+
+}
+.btn-locate:hover, .btn-search-shops:hover:not(:disabled), .btn-settings:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+
+}
+.btn-locate:active, .btn-search-shops:active {
+  transform: translateY(0);
+
+}
+.btn-search-shops:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+}
+.location-info {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+
+}
+  /* ===== Settings Panel ===== */ .settings-panel {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--color-bg-card-hover);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+
+}
+.settings-panel h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+
+}
+.settings-item {
+  margin-bottom: var(--spacing-md);
+
+}
+.settings-item label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+
+}
+.settings-item input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  /* */
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+
+}
+.settings-item input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+
+}
+  /* Tối ưu input number trên mobile */ .settings-item input[type="number"] {
+  /* */
+  inputmode: numeric;
+
+}
+  /* Ẩn spinner trên Chrome/Safari */ .settings-item input[type="number"]::-webkit-inner-spin-button, .settings-item input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+
+}
+.settings-item input[type="number"] {
+  -moz-appearance: textfield;
+
+}
+.btn-save-settings {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: var(--spacing-sm);
+
+}
+.btn-save-settings:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+
+}
+  /* ===== Chat Section ===== */ .chat-section {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 180px);
+
+}
 .chat-history {
-    flex: 1; /* Tự co giãn */
-    overflow-y: auto;
-    padding-right: 4px;
-    margin-bottom: var(--spacing-sm);
-    -webkit-overflow-scrolling: touch;
-}
+  flex: 1;
+  overflow-y: auto;
+  padding-right: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  /* */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  /* */
+  will-change: scroll-position;
 
-.chat-message { display: flex; gap: 10px; margin-bottom: 12px; }
+}
+  /* Custom Scrollbar */ .chat-history::-webkit-scrollbar {
+  width: 6px;
+
+}
+.chat-history::-webkit-scrollbar-track {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-full);
+
+}
+.chat-history::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+
+}
+  /* ===== Chat Messages ===== */ .chat-message {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  animation: messageSlide 0.3s ease-out;
+
+}
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+}
 .message-avatar {
-    width: 32px; height: 32px; flex-shrink: 0;
-    border-radius: 50%; background: var(--color-primary);
-    display: flex; align-items: center; justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+
+}
+.user-message .message-avatar {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+
 }
 .message-content {
-    background: var(--color-bg-card-hover);
-    padding: 10px 14px; border-radius: 12px;
-    max-width: 85%; font-size: 0.95rem; line-height: 1.4;
-    border: 1px solid var(--color-border);
-}
-.user-message { flex-direction: row-reverse; }
-.user-message .message-content {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.3);
-}
+  background: var(--color-bg-card-hover);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  max-width: 85%;
+  border: 1px solid var(--color-border);
 
-/* Chat Input */
-.chat-input-container {
-    display: flex; gap: 8px;
-    flex-shrink: 0;
-    padding-top: 4px;
+}
+.user-message {
+  flex-direction: row-reverse;
+
+}
+.user-message .message-content {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+  border-color: var(--color-primary);
+
+}
+.message-content p {
+  margin: 0;
+  line-height: 1.5;
+
+}
+.message-time {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+
+}
+  /* ===== Shops List (trong Map Section) ===== */ .shops-list {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg-card-hover);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  max-height: 400px;
+  overflow-y: auto;
+  /* */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+
+}
+.shops-list::-webkit-scrollbar {
+  width: 4px;
+
+}
+.shops-list::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+
+}
+.shops-list h3 {
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+
+}
+.shop-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 0.85rem;
+
+}
+.shop-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary);
+  transform: translateX(5px);
+
+}
+.shop-card:last-child {
+  margin-bottom: 0;
+
+}
+.shop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+
+}
+.shop-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  flex: 1;
+
+}
+.btn-open-maps {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-primary);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+}
+.btn-open-maps:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-glow);
+
+}
+.shop-info {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+
+}
+.shop-distance {
+  display: inline-block;
+  background: var(--gradient-primary);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: var(--spacing-sm);
+
+}
+.shop-promo {
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+
+}
+  /* ===== Chat Input ===== */ .chat-input-container {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+
 }
 .chat-input {
-    flex: 1; padding: 10px 16px;
-    background: var(--color-bg-card-hover);
-    border: 1px solid var(--color-border);
-    border-radius: 24px; color: var(--color-text-primary);
-    font-size: 16px; /* 16px để tránh iOS zoom */
-}
-.chat-input:focus { outline: none; border-color: var(--color-primary); }
+  flex: 1;
+  padding: var(--spacing-md);
+  background: var(--color-bg-card-hover);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  /* */
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+  /* */
+  font-size: 16px;
 
+}
+.chat-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+
+}
+.chat-input::placeholder {
+  color: var(--color-text-muted);
+
+}
 .btn-send {
-    width: 44px; height: 44px; flex-shrink: 0;
-    border-radius: 50%; border: none;
-    background: var(--gradient-primary); color: white;
-    display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: var(--spacing-md);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 44px;
+  min-height: 44px;
+
 }
+.btn-send:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
 
-/* =========================================
-   6. RESPONSIVE / MOBILE FIXES (QUAN TRỌNG)
-   ========================================= */
-
-@media (max-width: 1024px) {
-    .main-container {
-        grid-template-columns: 1fr; /* Tablet: 1 cột dọc */
-        overflow-y: auto; /* Cho phép scroll container */
-    }
-    .map-section, .chat-section {
-        height: auto;
-        min-height: 400px;
-    }
 }
+.btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 
-/* --- MOBILE SPECIFIC (FIXED) --- */
+}
+.btn-send svg {
+  transition: transform 0.3s ease;
+  width: 20px;
+  height: 20px;
+
+}
+.btn-send:hover:not(:disabled) svg {
+  transform: translateX(2px);
+
+}
+  /* ===== Typing Indicator ===== */ .typing-content {
+  padding: var(--spacing-sm) var(--spacing-md) !important;
+  min-width: 60px;
+
+}
+.typing-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  height: 20px;
+
+}
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out;
+
+}
+.typing-dots span:nth-child(1) {
+  animation-delay: 0s;
+
+}
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+
+}
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+
+}
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+
+  }
+  30% {
+    transform: translateY(-8px);
+    opacity: 1;
+
+  }
+}
+.loading-spinner p {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+
+}
+  /* ===== Utility Classes ===== */ .hidden {
+  display: none !important;
+
+}
+  /* ===== Leaflet Custom Styles ===== */
+/* Tối ưu Leaflet controls cho mobile */ .leaflet-control-zoom {
+  margin: 10px !important;
+
+}
+.leaflet-control-zoom a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 20px !important;
+  min-width: 44px;
+  /* */
+  min-height: 44px;
+
+}
+.leaflet-bar {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+
+}
+.leaflet-popup-content-wrapper {
+  max-width: 90vw;
+  /* Giới hạn width trên mobile */
+}
 @media (max-width: 768px) {
-    /* 1. Reset Main Container sang Flex Column */
-    .main-container {
-        display: flex;
-        flex-direction: column;
-        padding: var(--spacing-xs);
-        gap: var(--spacing-xs);
-        overflow: hidden; /* Ngăn scroll ngoài, ép vào trong từng phần */
-    }
+  .leaflet-control-zoom {
+    margin: 8px !important;
 
-    /* 2. Header tối giản */
-    .header {
-        padding: 8px var(--spacing-sm);
-        /* Chỉ cộng thêm safe area, loại bỏ padding cứng 50px */
-        padding-top: calc(8px + env(safe-area-inset-top, 0px));
-        padding-bottom: 8px;
-    }
-    .tagline { display: none; } /* Ẩn slogan */
-    .logo h1 { font-size: 1.2rem; }
-    
-    .btn-theme {
-        width: 32px; height: 32px;
-        right: var(--spacing-sm) !important;
-        background: transparent; border: none;
-    }
+  }
+  .leaflet-control-zoom a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 18px !important;
 
-    /* 3. Map Section: Chiếm khoảng 35% màn hình */
-    .map-section {
-        flex: 0 0 auto; /* Không co giãn */
-        height: auto;
-        max-height: 35vh; 
-        padding: var(--spacing-xs);
-    }
-    .map-container {
-        min-height: 180px; 
-        height: 25vh;
-    }
-    /* Ẩn bớt nút settings/search trên mobile map để gọn */
-    .header-buttons .btn-settings { display: none; }
-    .location-info { display: none; } 
+  }
+  .leaflet-popup-content {
+    margin: 10px !important;
+    font-size: 0.9rem !important;
 
-    /* 4. Chat Section: Chiếm toàn bộ phần còn lại (Flex 1) */
-    .chat-section {
-        flex: 1; /* Quan trọng: Lấp đầy khoảng trống còn lại */
-        min-height: 0; /* Cho phép con bên trong scroll */
-        padding: var(--spacing-sm);
-        margin-bottom: 0;
-    }
+  }
+  .map-popup h4 {
+    font-size: 14px !important;
 
-    .section-header { margin-bottom: 8px; }
-    .section-header h2 { font-size: 1rem; }
-    
-    .chat-history {
-        /* Đảm bảo history scroll được */
-        padding-bottom: 5px;
-    }
+  }
+  .map-popup p {
+    font-size: 12px !important;
+    margin: 3px 0 !important;
 
-    /* Input gọn hơn */
-    .chat-input { padding: 8px 12px; height: 40px; }
-    .btn-send { width: 40px; height: 40px; }
+  }
+  .popup-btn {
+    padding: 10px !important;
+    font-size: 11px !important;
+    min-height: 44px;
+  /* */
+  margin-top: 8px !important;
+
+  }
 }
+.user-marker-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  animation: pulse 2s infinite;
 
-/* Màn hình siêu nhỏ */
-@media (max-width: 480px) {
-    .map-section { max-height: 30vh; }
-    .header-buttons button span { display: none; } /* Chỉ hiện icon */
-    .header-buttons button { padding: 8px; }
 }
+.shop-marker-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  font-family: var(--font-body);
 
-/* =========================================
-   7. LEAFLET OVERRIDES
-   ========================================= */
-.leaflet-control-zoom { display: none !important; } /* Ẩn nút zoom mặc định trên mobile cho thoáng */
-.user-marker-icon, .shop-marker-icon {
-    border: 2px solid white; border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
-.user-marker-icon { background: #10B981; }
-.shop-marker-icon { background: #8B5CF6; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+
+}
+.leaflet-popup-content {
+  margin: 12px;
+  font-family: var(--font-body);
+
+}
+.map-popup h4 {
+  margin: 0 0 8px 0;
+  color: #8B5CF6;
+  font-size: 15px;
+
+}
+.map-popup p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #333;
+
+}
+.map-popup .promo {
+  color: #B45309;
+  background: #FEF3C7;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+
+}
+.popup-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+
+}
+.popup-btn:hover {
+  opacity: 0.9;
+
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+
+  }
+}
+  /* */
+  @media (max-width: 768px) {
+  html {
+    font-size: 19px;
+
+  }
+  body {
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+
+  }
+  body {
+  /* */
+  padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .header {
+    padding: 4px var(--spacing-sm);
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    padding-bottom: 4px;
+
+  }
+  .header-top {
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 0;
+
+  }
+  .logo {
+    flex: 0 0 auto;
+    justify-content: center;
+
+  }
+  .logo-icon {
+    font-size: 1rem;
+
+  }
+  .logo h1 {
+    font-size: 1.2rem;
+    letter-spacing: 0.3px;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+
+  }
+  .tagline {
+    display: none;
+
+  }
+  .btn-theme {
+    position: fixed !important;
+    right: var(--spacing-md) !important;
+    top: var(--spacing-md) !important;
+    transform: none !important;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    z-index: 1000;
+    background: var(--color-bg-card);
+    box-shadow: var(--shadow-md);
+
+  }
+  /* */
+  body.light-mode .btn-theme .theme-icon {
+    color: #1E293B !important;
+
+  }
+  /* */
+  body:not(.light-mode) .btn-theme .theme-icon {
+    color: #F8FAFC !important;
+
+  }
+  .main-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .chat-section, .map-section {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+
+  }
+  .section-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+
+  }
+  .header-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-sm);
+    width: auto;
+    justify-content: flex-start;
+
+  }
+  .btn-locate, .btn-search-shops, .btn-settings {
+    flex: 0 0 auto;
+    min-width: auto;
+    width: auto;
+    font-size: 0.8rem !important;
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 44px;
+  /* */
+  touch-action: manipulation;
+  /* */
+  white-space: nowrap;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+  }
+  .map-container {
+    min-height: 250px;
+    max-height: 35vh;
+    border-radius: var(--radius-sm);
+
+  }
+  .map-section {
+    max-height: 40vh;
+    flex-shrink: 0;
+
+  }
+  .location-info {
+    font-size: 0.85rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-top: var(--spacing-sm);
+
+  }
+  .settings-panel {
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+
+  }
+  .settings-panel h3 {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+
+  }
+  .settings-item {
+    margin-bottom: var(--spacing-sm);
+
+  }
+  .settings-item label {
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-xs);
+
+  }
+  .settings-item input {
+    font-size: 16px;
+  /* */
+  padding: var(--spacing-sm);
+    min-height: 44px;
+
+  }
+  .btn-save-settings {
+    min-height: 44px;
+    font-size: 0.9rem;
+    padding: var(--spacing-sm);
+
+  }
+  .chat-section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .chat-history {
+    padding-right: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+
+  }
+  .chat-message {
+    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-xs);
+
+  }
+  .message-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+
+  }
+  .message-content {
+    padding: var(--spacing-md);
+    max-width: 80%;
+    font-size: 0.95rem;
+
+  }
+  .message-content p {
+    line-height: 1.4;
+
+  }
+  .message-time {
+    font-size: 0.7rem;
+    margin-top: 2px;
+
+  }
+  .chat-input-container {
+    gap: var(--spacing-xs);
+    padding-top: var(--spacing-xs);
+
+  }
+  .chat-input {
+    font-size: 16px;
+  /* */
+  padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 44px;
+    border-radius: var(--radius-full);
+
+  }
+  .btn-send {
+    min-width: 50px;
+    min-height: 44px;
+    padding: var(--spacing-sm);
+    flex-shrink: 0;
+
+  }
+  .btn-send span {
+    display: none !important;
+
+  }
+  .btn-send {
+    padding: var(--spacing-sm);
+    min-width: 44px;
+    min-height: 44px;
+
+  }
+  .btn-send svg {
+    width: 20px;
+    height: 20px;
+
+  }
+  .btn-send svg {
+    width: 18px;
+    height: 18px;
+
+  }
+  .shops-list {
+    max-height: 300px;
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+
+  }
+  .shops-list h3 {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-xs);
+
+  }
+  .shop-card {
+    padding: var(--spacing-sm);
+    font-size: 0.85rem;
+    min-height: 44px;
+  /* Touch target */
+  }
+  .shop-header {
+    gap: var(--spacing-xs);
+
+  }
+  .btn-open-maps {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 0.9rem;
+
+  }
+  .shop-info {
+    font-size: 0.8rem;
+    line-height: 1.5;
+
+  }
+  .shop-distance {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+
+  }
+  .shop-promo {
+    font-size: 0.75rem;
+    padding: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+
+  }
+}
+  /* */
+  @media (max-width: 480px) {
+  html {
+    font-size: 18px;
+
+  }
+  body {
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+
+  }
+  .header {
+    padding: 3px var(--spacing-xs);
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    padding-bottom: 3px;
+
+  }
+  .header-top {
+    margin-bottom: 0;
+
+  }
+  .logo h1 {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+
+  }
+  .tagline {
+    display: none;
+
+  }
+  .main-container {
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .section-header h2 {
+    font-size: 1.1rem;
+
+  }
+  .header-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--spacing-xs);
+    width: 100%;
+
+  }
+  .btn-locate, .btn-search-shops, .btn-settings {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    font-size: 0.75rem !important;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    white-space: nowrap;
+    text-align: center;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+  }
+  .map-container {
+    min-height: 200px;
+    max-height: 30vh;
+
+  }
+  .map-section {
+    max-height: 35vh;
+    flex-shrink: 0;
+
+  }
+  .chat-section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .message-content {
+    max-width: 75%;
+    font-size: 0.9rem;
+
+  }
+}
+  /* */
+  @media (max-width: 768px) and (orientation: landscape) {
+  .header {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    padding-top: calc(var(--spacing-xs) + 60px + env(safe-area-inset-top, 0px));
+
+  }
+  .header-top {
+    margin-bottom: 0;
+
+  }
+  .logo h1 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0;
+
+  }
+  .tagline {
+    display: none;
+
+  }
+  .main-container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xs);
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+  }
+  .map-container {
+    min-height: 200px;
+    max-height: calc(100vh - 200px);
+
+  }
+  .chat-section {
+    max-height: calc(100vh - 150px);
+    height: auto;
+
+  }
+}
+  /* */
+  @media (hover: none) and (pointer: coarse) {
+  /* */
+  button, .btn-locate, .btn-search-shops, .btn-settings, .btn-send, .btn-theme, .btn-open-maps, .shop-card {
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.3);
+    tap-highlight-color: rgba(139, 92, 246, 0.3);
+
+  }
+  /* Tăng kích thước touch target */ .btn-locate, .btn-search-shops, .btn-settings, .btn-send, .btn-theme {
+    min-height: 44px;
+    min-width: 44px;
+
+  }
+  /* Cải thiện scroll trên mobile */ .chat-history, .shops-list {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+  }
+}
+  /* */
+  @keyframes shopAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+
+  }
+}
+.shop-card {
+  animation: shopAppear 0.4s ease-out;
+
+}
+.shop-card:nth-child(1) {
+  animation-delay: 0.1s;
+
+}
+.shop-card:nth-child(2) {
+  animation-delay: 0.2s;
+
+}
+.shop-card:nth-child(3) {
+  animation-delay: 0.3s;
+
+}

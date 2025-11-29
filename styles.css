@@ -1166,28 +1166,23 @@ body::before {
     }
     
     .header-buttons {
+        display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: var(--spacing-xs);
+        width: 100%;
     }
     
     .btn-locate,
     .btn-search-shops,
     .btn-settings {
-        flex: 1 1 auto;
-        min-width: calc(33.333% - var(--spacing-xs) * 2/3);
+        flex: 1 1 0;
+        min-width: 0;
         width: auto;
-        font-size: 0.75rem;
-        padding: var(--spacing-sm);
-    }
-    
-    /* Hiển thị text trên mobile */
-    .btn-locate,
-    .btn-search-shops,
-    .btn-settings {
         font-size: 0.75rem;
         padding: var(--spacing-sm) var(--spacing-xs);
         white-space: nowrap;
+        text-align: center;
     }
     
     .map-container {

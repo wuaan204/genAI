@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Khởi tạo theme từ localStorage
  */
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     const themeIcon = elements.themeToggle.querySelector('.theme-icon');
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');

@@ -931,11 +931,13 @@ body:not(.light-mode) .theme-icon {
         height: 100vh;
         height: -webkit-fill-available;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
     
     .header {
         padding: 4px var(--spacing-sm);
-        padding-top: calc(4px + 50px + env(safe-area-inset-top, 0px));
+        padding-top: calc(8px + env(safe-area-inset-top, 0px));
         padding-bottom: 4px;
     }
     
@@ -964,10 +966,7 @@ body:not(.light-mode) .theme-icon {
     }
     
     .tagline {
-        font-size: 0.65rem;
-        margin-top: 2px;
-        margin-bottom: 0;
-        line-height: 1.2;
+        display: none;
     }
     
     .btn-theme {
@@ -996,9 +995,11 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        height: calc(100vh - 70px);
+        flex: 1;
         overflow-y: auto;
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
     }
     
     .chat-section,
@@ -1049,9 +1050,14 @@ body:not(.light-mode) .theme-icon {
     }
     
     .map-container {
-        min-height: 350px;
-        max-height: 60vh;
+        min-height: 250px;
+        max-height: 35vh;
         border-radius: var(--radius-sm);
+    }
+    
+    .map-section {
+        max-height: 40vh;
+        flex-shrink: 0;
     }
     
     .location-info {
@@ -1092,9 +1098,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 180px);
-        min-height: 180px;
-        height: auto;
+        flex: 1;
+        min-height: 0;
     }
     
     .chat-history {
@@ -1221,11 +1226,13 @@ body:not(.light-mode) .theme-icon {
     
     body {
         font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        display: flex;
+        flex-direction: column;
     }
     
     .header {
         padding: 3px var(--spacing-xs);
-        padding-top: calc(3px + 45px + env(safe-area-inset-top, 0px));
+        padding-top: calc(8px + env(safe-area-inset-top, 0px));
         padding-bottom: 3px;
     }
     
@@ -1241,18 +1248,17 @@ body:not(.light-mode) .theme-icon {
     }
     
     .tagline {
-        font-size: 0.6rem;
-        margin-top: 2px;
-        margin-bottom: 0;
-        line-height: 1.2;
+        display: none;
     }
     
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
-        height: calc(100vh - 60px);
+        flex: 1;
         overflow-y: auto;
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
     }
     
     .section-header h2 {
@@ -1286,14 +1292,18 @@ body:not(.light-mode) .theme-icon {
     }
     
     .map-container {
-        min-height: 300px;
-        max-height: 55vh;
+        min-height: 200px;
+        max-height: 30vh;
+    }
+    
+    .map-section {
+        max-height: 35vh;
+        flex-shrink: 0;
     }
     
     .chat-section {
-        max-height: calc(100vh - 150px);
-        min-height: 160px;
-        height: auto;
+        flex: 1;
+        min-height: 0;
     }
     
     .message-content {

@@ -102,26 +102,6 @@ MAX_SHOPS=30
 
 ### Bước 4: Khởi động Ứng dụng
 
-**Cách 1: Sử dụng Script Tự động (Ko khuyến nghị)**
-
-Windows PowerShell:
-```powershell
-.\start.ps1
-```
-
-Windows CMD:
-```cmd
-start.bat
-```
-
-Script sẽ tự động:
-- Kiểm tra Python và dependencies
-- Khởi động Backend tại http://localhost:8000
-- Khởi động Frontend tại http://localhost:5500
-- Tự động mở trình duyệt
-
-**Cách 2: Khởi động Thủ công**
-
 Terminal 1 - Backend (không reload):
 ```bash
 cd backend

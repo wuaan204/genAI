@@ -108,9 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
+    const themeIcon = elements.themeToggle.querySelector('.theme-icon');
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
-        elements.themeToggle.querySelector('.theme-icon').textContent = '☀️';
+        if (themeIcon) themeIcon.textContent = '☀';
+    } else {
+        if (themeIcon) themeIcon.textContent = '☾';
     }
 }
 
@@ -122,10 +125,10 @@ function toggleTheme() {
     const themeIcon = elements.themeToggle.querySelector('.theme-icon');
     
     if (isLight) {
-        themeIcon.textContent = '☀️';
+        if (themeIcon) themeIcon.textContent = '☀';
         localStorage.setItem('theme', 'light');
     } else {
-        themeIcon.textContent = '🌙';
+        if (themeIcon) themeIcon.textContent = '☾';
         localStorage.setItem('theme', 'dark');
     }
 }

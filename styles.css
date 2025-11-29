@@ -1181,29 +1181,13 @@ body::before {
         padding: var(--spacing-sm);
     }
     
-    .btn-locate .btn-icon,
-    .btn-search-shops .btn-icon,
-    .btn-settings .btn-icon {
-        margin-right: 0;
-        font-size: 1.1rem;
-    }
-    
-    /* Ẩn text trên màn hình rất nhỏ, chỉ hiển thị icon */
+    /* Hiển thị text trên mobile */
     .btn-locate,
     .btn-search-shops,
     .btn-settings {
-        font-size: 0;
-        padding: var(--spacing-sm);
-        min-width: 44px;
-        width: 44px;
-        justify-content: center;
-    }
-    
-    .btn-locate .btn-icon,
-    .btn-search-shops .btn-icon,
-    .btn-settings .btn-icon {
-        font-size: 1.2rem;
-        margin: 0;
+        font-size: 0.75rem;
+        padding: var(--spacing-sm) var(--spacing-xs);
+        white-space: nowrap;
     }
     
     .map-container {

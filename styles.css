@@ -935,7 +935,8 @@ body:not(.light-mode) .theme-icon {
     
     .header {
         padding: var(--spacing-sm) var(--spacing-sm);
-        padding-top: calc(var(--spacing-sm) + 60px + env(safe-area-inset-top, 0px));
+        padding-top: calc(var(--spacing-sm) + 50px + env(safe-area-inset-top, 0px));
+        padding-bottom: var(--spacing-xs);
     }
     
     .header-top {
@@ -993,7 +994,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        height: calc(100vh - 90px);
+        height: calc(100vh - 120px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1089,8 +1090,9 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 180px);
-        min-height: 300px;
+        max-height: calc(100vh - 250px);
+        min-height: 250px;
+        height: auto;
     }
     
     .chat-history {
@@ -1221,7 +1223,8 @@ body:not(.light-mode) .theme-icon {
     
     .header {
         padding: var(--spacing-xs) var(--spacing-xs);
-        padding-top: calc(var(--spacing-xs) + 60px + env(safe-area-inset-top, 0px));
+        padding-top: calc(var(--spacing-xs) + 50px + env(safe-area-inset-top, 0px));
+        padding-bottom: var(--spacing-xs);
     }
     
     .header-top {
@@ -1243,7 +1246,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
-        height: calc(100vh - 80px);
+        height: calc(100vh - 110px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1284,8 +1287,9 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 160px);
-        min-height: 250px;
+        max-height: calc(100vh - 220px);
+        min-height: 200px;
+        height: auto;
     }
     
     .message-content {
@@ -1329,7 +1333,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 120px);
+        max-height: calc(100vh - 180px);
+        height: auto;
     }
 }
 

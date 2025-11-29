@@ -4,18 +4,21 @@ services:
     env: python
     region: singapore
     plan: free
-    # Tối ưu build: sử dụng pip cache và upgrade pip
+    # Tối ưu build: sử dụng pip cache và chỉ dùng pre-built wheels
     # Render tự động cache pip packages, nên build lần 2+ sẽ nhanh hơn
+    # --only-binary :all: để tránh build từ source (tránh lỗi Rust compilation)
     buildCommand: |
       cd backend &&
       python -m pip install --upgrade --quiet pip setuptools wheel &&
-      pip install --cache-dir /tmp/pip-cache --no-warn-script-location -r requirements.txt
+      pip install --cache-dir /tmp/pip-cache --only-binary :all: --no-warn-script-location -r requirements.txt
     startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT --workers 2
     envVars:
       - key: PORT
         value: 8000
       - key: PYTHON_VERSION
         value: 3.11.9
+      - key: PIP_ONLY_BINARY
+        value: :all:
       - key: PYTHONUNBUFFERED
         value: 1
       - key: PIP_NO_CACHE_DIR

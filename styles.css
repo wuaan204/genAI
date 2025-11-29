@@ -168,6 +168,8 @@ body::before {
 .theme-icon {
     font-size: 1.3rem;
     transition: transform 0.3s ease;
+    color: var(--color-text-primary);
+    line-height: 1;
 }
 
 .btn-theme:hover .theme-icon {
@@ -972,16 +974,17 @@ body::before {
         flex: 0 0 auto;
         min-width: auto;
         width: auto;
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
         padding: var(--spacing-sm) var(--spacing-md);
         min-height: 44px; /* Touch target tối thiểu */
         touch-action: manipulation; /* Tắt double-tap zoom */
         white-space: nowrap;
-    }
-    
-    .btn-icon {
-        font-size: 1rem;
-        margin-right: var(--spacing-xs);
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        color: white !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     .map-container {
@@ -1179,10 +1182,16 @@ body::before {
         flex: 1 1 0;
         min-width: 0;
         width: auto;
-        font-size: 0.75rem;
+        font-size: 0.75rem !important;
         padding: var(--spacing-sm) var(--spacing-xs);
         white-space: nowrap;
         text-align: center;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        color: white !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     .map-container {

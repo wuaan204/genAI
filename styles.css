@@ -227,7 +227,7 @@ body:not(.light-mode) .theme-icon {
     max-width: 1400px;
     margin: 0 auto;
     padding: var(--spacing-lg);
-    height: calc(100vh - 90px);
+    height: calc(100vh - 70px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -435,7 +435,7 @@ body:not(.light-mode) .theme-icon {
     box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 180px);
 }
 
 .chat-history {

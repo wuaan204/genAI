@@ -934,13 +934,13 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
-        padding: var(--spacing-sm) var(--spacing-sm);
-        padding-top: calc(var(--spacing-sm) + 50px + env(safe-area-inset-top, 0px));
+        padding: var(--spacing-xs) var(--spacing-sm);
+        padding-top: calc(var(--spacing-xs) + 50px + env(safe-area-inset-top, 0px));
         padding-bottom: var(--spacing-xs);
     }
     
     .header-top {
-        gap: var(--spacing-xs);
+        gap: 0;
         flex-wrap: wrap;
         justify-content: center;
         margin-bottom: 0;
@@ -952,20 +952,22 @@ body:not(.light-mode) .theme-icon {
     }
     
     .logo-icon {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .logo h1 {
-        font-size: 1.4rem;
-        letter-spacing: 0.5px;
+        font-size: 1.2rem;
+        letter-spacing: 0.3px;
         text-align: center;
         margin: 0;
+        line-height: 1.2;
     }
     
     .tagline {
-        font-size: 0.75rem;
-        margin-top: var(--spacing-xs);
+        font-size: 0.65rem;
+        margin-top: 2px;
         margin-bottom: 0;
+        line-height: 1.2;
     }
     
     .btn-theme {
@@ -994,7 +996,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        height: calc(100vh - 120px);
+        height: calc(100vh - 85px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1090,8 +1092,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 250px);
-        min-height: 250px;
+        max-height: calc(100vh - 200px);
+        min-height: 200px;
         height: auto;
     }
     
@@ -1223,8 +1225,8 @@ body:not(.light-mode) .theme-icon {
     
     .header {
         padding: var(--spacing-xs) var(--spacing-xs);
-        padding-top: calc(var(--spacing-xs) + 50px + env(safe-area-inset-top, 0px));
-        padding-bottom: var(--spacing-xs);
+        padding-top: calc(var(--spacing-xs) + 45px + env(safe-area-inset-top, 0px));
+        padding-bottom: 2px;
     }
     
     .header-top {
@@ -1232,21 +1234,23 @@ body:not(.light-mode) .theme-icon {
     }
     
     .logo h1 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         text-align: center;
         margin: 0;
+        line-height: 1.2;
     }
     
     .tagline {
-        font-size: 0.7rem;
-        margin-top: var(--spacing-xs);
+        font-size: 0.6rem;
+        margin-top: 2px;
         margin-bottom: 0;
+        line-height: 1.2;
     }
     
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
-        height: calc(100vh - 110px);
+        height: calc(100vh - 75px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1287,8 +1291,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 220px);
-        min-height: 200px;
+        max-height: calc(100vh - 170px);
+        min-height: 180px;
         height: auto;
     }
     
@@ -1333,7 +1337,7 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 180px);
+        max-height: calc(100vh - 150px);
         height: auto;
     }
 }

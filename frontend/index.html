@@ -38,6 +38,10 @@
             <div class="section-header">
                 <h2>🗺️ Bản đồ</h2>
                 <div class="header-buttons">
+                    <button id="settings-btn" class="btn-settings" title="Cài đặt tìm kiếm">
+                        <span class="btn-icon">⚙️</span>
+                        Cài đặt
+                    </button>
                     <button id="locate-btn" class="btn-locate">
                         <span class="btn-icon">📍</span>
                         Vị trí
@@ -47,6 +51,24 @@
                         Tìm cửa hàng
                     </button>
                 </div>
+            </div>
+            
+            <!-- Settings Panel -->
+            <div id="settings-panel" class="settings-panel hidden">
+                <h3>⚙️ Cài đặt tìm kiếm</h3>
+                <div class="settings-item">
+                    <label for="priority-radius">Bán kính ưu tiên (km):</label>
+                    <input type="number" id="priority-radius" min="1" max="100" value="20" step="1">
+                </div>
+                <div class="settings-item">
+                    <label for="max-radius">Bán kính tối đa (km):</label>
+                    <input type="number" id="max-radius" min="1" max="1000" value="500" step="10">
+                </div>
+                <div class="settings-item">
+                    <label for="max-shops">Số lượng cửa hàng tối đa:</label>
+                    <input type="number" id="max-shops" min="1" max="100" value="30" step="1">
+                </div>
+                <button id="save-settings-btn" class="btn-save-settings">Lưu cài đặt</button>
             </div>
             <div id="map" class="map-container"></div>
             <div class="location-info">

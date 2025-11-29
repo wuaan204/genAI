@@ -15,7 +15,12 @@ const state = {
     map: null,
     userMarker: null,
     shopMarkers: [],
-    userLocation: null
+    userLocation: null,
+    settings: {
+        priorityRadiusKm: 20.0,
+        maxRadiusKm: 500.0,
+        maxShops: 30
+    }
 };
 
 // ===== DOM Elements =====
@@ -26,15 +31,22 @@ const elements = {
     sendBtn: document.getElementById('send-btn'),
     locateBtn: document.getElementById('locate-btn'),
     searchShopsBtn: document.getElementById('search-shops-btn'),
+    settingsBtn: document.getElementById('settings-btn'),
     themeToggle: document.getElementById('theme-toggle'),
     locationStatus: document.getElementById('location-status'),
     shopsList: document.getElementById('shops-list'),
-    shopsContainer: document.getElementById('shops-container')
+    shopsContainer: document.getElementById('shops-container'),
+    settingsPanel: document.getElementById('settings-panel'),
+    priorityRadiusInput: document.getElementById('priority-radius'),
+    maxRadiusInput: document.getElementById('max-radius'),
+    maxShopsInput: document.getElementById('max-shops'),
+    saveSettingsBtn: document.getElementById('save-settings-btn')
 };
 
 // ===== Initialize Application =====
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    initSettings();
     initMap();
     setupEventListeners();
 });
@@ -67,6 +79,62 @@ function toggleTheme() {
 }
 
 /**
+ * Khởi tạo settings từ localStorage
+ */
+function initSettings() {
+    const savedSettings = localStorage.getItem('searchSettings');
+    if (savedSettings) {
+        try {
+            state.settings = JSON.parse(savedSettings);
+        } catch (e) {
+            console.error('Lỗi load settings:', e);
+        }
+    }
+    
+    // Cập nhật giá trị trong form
+    elements.priorityRadiusInput.value = state.settings.priorityRadiusKm;
+    elements.maxRadiusInput.value = state.settings.maxRadiusKm;
+    elements.maxShopsInput.value = state.settings.maxShops;
+}
+
+/**
+ * Toggle settings panel
+ */
+function toggleSettingsPanel() {
+    elements.settingsPanel.classList.toggle('hidden');
+}
+
+/**
+ * Lưu settings với validation
+ */
+function saveSettings() {
+    // Validate và clamp values
+    const priorityRadius = Math.max(1, Math.min(50, parseFloat(elements.priorityRadiusInput.value) || 20.0));
+    const maxRadius = Math.max(priorityRadius, Math.min(100, parseFloat(elements.maxRadiusInput.value) || 500.0));
+    const maxShops = Math.max(1, Math.min(100, parseInt(elements.maxShopsInput.value) || 30));
+    
+    state.settings.priorityRadiusKm = priorityRadius;
+    state.settings.maxRadiusKm = maxRadius;
+    state.settings.maxShops = maxShops;
+    
+    // Cập nhật lại input với giá trị đã validate
+    elements.priorityRadiusInput.value = priorityRadius;
+    elements.maxRadiusInput.value = maxRadius;
+    elements.maxShopsInput.value = maxShops;
+    
+    localStorage.setItem('searchSettings', JSON.stringify(state.settings));
+    
+    // Đóng panel
+    elements.settingsPanel.classList.add('hidden');
+    
+    // Hiển thị thông báo
+    updateLocationStatus('Đã lưu cài đặt tìm kiếm', 'success');
+    setTimeout(() => {
+        updateLocationStatus('Sẵn sàng tìm kiếm', 'info');
+    }, 2000);
+}
+
+/**
  * Khởi tạo bản đồ Leaflet
  */
 function initMap() {
@@ -91,6 +159,8 @@ function setupEventListeners() {
     elements.sendBtn.addEventListener('click', sendMessage);
     elements.searchShopsBtn.addEventListener('click', searchNearbyShops);
     elements.themeToggle.addEventListener('click', toggleTheme);
+    elements.settingsBtn.addEventListener('click', toggleSettingsPanel);
+    elements.saveSettingsBtn.addEventListener('click', saveSettings);
     
     elements.chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -233,6 +303,33 @@ function updateWelcomeMessage(hasLocation) {
 }
 
 /**
+ * Helper: Gọi API chat với message
+ */
+async function callChatAPI(message) {
+    const response = await fetch(`${CONFIG.API_BASE_URL}/chat`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            lat: state.userLocation.lat,
+            lon: state.userLocation.lon,
+            message: message,
+            priority_radius_km: state.settings.priorityRadiusKm,
+            max_radius_km: state.settings.maxRadiusKm,
+            max_shops: state.settings.maxShops
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+/**
  * Gửi tin nhắn đến backend
  */
 async function sendMessage() {
@@ -245,31 +342,12 @@ async function sendMessage() {
     addUserMessage(message);
     elements.chatInput.value = '';
     elements.sendBtn.disabled = true;
-
     showTypingIndicator();
 
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/chat`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                lat: state.userLocation.lat,
-                lon: state.userLocation.lon,
-                message: message
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
+        const data = await callChatAPI(message);
         hideTypingIndicator();
         addBotMessage(data.ai_message);
-
     } catch (error) {
         console.error('Lỗi gửi tin nhắn:', error);
         hideTypingIndicator();
@@ -285,39 +363,24 @@ async function searchNearbyShops() {
         return;
     }
 
+    const originalContent = elements.searchShopsBtn.innerHTML;
     elements.searchShopsBtn.disabled = true;
     elements.searchShopsBtn.innerHTML = '<span class="btn-icon">⏳</span> Đang tìm...';
+    updateLocationStatus('Đang tìm kiếm cửa hàng...', 'loading');
 
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/chat`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                lat: state.userLocation.lat,
-                lon: state.userLocation.lon,
-                message: 'Tìm cửa hàng gần đây'
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = await callChatAPI('Tìm cửa hàng gần đây');
         
         displayShopsOnMap(data.shops);
         displayShopsList(data.shops);
         
         updateLocationStatus(`Tìm thấy ${data.shops.length} cửa hàng`, 'success');
-
     } catch (error) {
         console.error('Lỗi tìm kiếm:', error);
         updateLocationStatus('Lỗi tìm kiếm cửa hàng', 'error');
     } finally {
         elements.searchShopsBtn.disabled = false;
-        elements.searchShopsBtn.innerHTML = '<span class="btn-icon">🔍</span> Tìm cửa hàng';
+        elements.searchShopsBtn.innerHTML = originalContent;
     }
 }
 
@@ -346,21 +409,40 @@ function displayShopsOnMap(shops) {
             iconAnchor: [18, 18]
         });
 
+        // Escape HTML để tránh XSS
+        const shopNameEscaped = escapeHtml(shop.name);
+        const shopAddressEscaped = escapeHtml(shop.address);
+        const promoEscaped = shop.promo_text ? escapeHtml(shop.promo_text) : '';
+        
         const marker = L.marker([shop.lat, shop.lon], { icon: shopIcon })
             .addTo(state.map)
             .bindPopup(`
                 <div class="map-popup">
-                    <h4>🏪 ${shop.name}</h4>
-                    <p>📍 ${shop.address}</p>
+                    <h4>🏪 ${shopNameEscaped}</h4>
+                    <p>📍 ${shopAddressEscaped}</p>
                     <p>📏 ${shop.distance_km} km</p>
-                    <p>🏷️ ${shop.category}</p>
-                    <p>💰 ${shop.price_range}</p>
-                    ${shop.promo_text ? `<p class="promo">🎁 ${shop.promo_text}</p>` : ''}
-                    <button onclick="openInGoogleMaps('${shop.name.replace(/'/g, "\\'")}', '${shop.address.replace(/'/g, "\\'")}')" class="popup-btn">
+                    <p>🏷️ ${escapeHtml(shop.category)}</p>
+                    <p>💰 ${escapeHtml(shop.price_range)}</p>
+                    ${promoEscaped ? `<p class="promo">🎁 ${promoEscaped}</p>` : ''}
+                    <button class="popup-btn" data-shop-name="${shopNameEscaped}" data-shop-address="${shopAddressEscaped}">
                         🗺️ Mở Google Maps
                     </button>
                 </div>
             `);
+        
+        // Thêm event listener cho button trong popup (sử dụng closure để tránh conflict)
+        marker.on('popupopen', (() => {
+            const shopData = { name: shop.name, address: shop.address };
+            return () => {
+                const btn = marker.getPopup().getElement()?.querySelector('.popup-btn');
+                if (btn) {
+                    btn.onclick = (e) => {
+                        e.stopPropagation();
+                        openInGoogleMaps(shopData.name, shopData.address);
+                    };
+                }
+            };
+        })());
 
         state.shopMarkers.push(marker);
         bounds.push([shop.lat, shop.lon]);
@@ -385,10 +467,17 @@ function displayShopsList(shops) {
     shops.forEach((shop, index) => {
         const shopCard = document.createElement('div');
         shopCard.className = 'shop-card';
+        // Escape HTML để tránh XSS
+        const nameEscaped = escapeHtml(shop.name);
+        const addressEscaped = escapeHtml(shop.address);
+        const categoryEscaped = escapeHtml(shop.category);
+        const priceEscaped = escapeHtml(shop.price_range);
+        const promoEscaped = shop.promo_text ? escapeHtml(shop.promo_text) : '';
+        
         shopCard.innerHTML = `
             <div class="shop-header">
                 <div class="shop-name">
-                    ${index + 1}. ${shop.name}
+                    ${index + 1}. ${nameEscaped}
                     <span class="shop-distance">${shop.distance_km} km</span>
                 </div>
                 <button class="btn-open-maps" title="Mở trong Google Maps">
@@ -396,10 +485,10 @@ function displayShopsList(shops) {
                 </button>
             </div>
             <div class="shop-info">
-                📍 ${shop.address}<br>
-                🏷️ ${shop.category} | 💰 ${shop.price_range}
+                📍 ${addressEscaped}<br>
+                🏷️ ${categoryEscaped} | 💰 ${priceEscaped}
             </div>
-            ${shop.promo_text ? `<div class="shop-promo">🎁 ${shop.promo_text}</div>` : ''}
+            ${promoEscaped ? `<div class="shop-promo">🎁 ${promoEscaped}</div>` : ''}
         `;
 
         const openMapsBtn = shopCard.querySelector('.btn-open-maps');

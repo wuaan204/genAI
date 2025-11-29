@@ -250,7 +250,8 @@ body::before {
 }
 
 .btn-locate,
-.btn-search-shops {
+.btn-search-shops,
+.btn-settings {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
@@ -274,8 +275,13 @@ body::before {
     background: linear-gradient(135deg, #10B981, #059669);
 }
 
+.btn-settings {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+}
+
 .btn-locate:hover,
-.btn-search-shops:hover:not(:disabled) {
+.btn-search-shops:hover:not(:disabled),
+.btn-settings:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-glow);
 }
@@ -298,6 +304,73 @@ body::before {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     text-align: center;
+}
+
+/* ===== Settings Panel ===== */
+.settings-panel {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-card-hover);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.settings-panel h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.settings-item {
+    margin-bottom: var(--spacing-md);
+}
+
+.settings-item label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.settings-item input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.settings-item input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.btn-save-settings {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: var(--spacing-sm);
+}
+
+.btn-save-settings:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
 }
 
 /* ===== Chat Section ===== */

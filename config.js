@@ -3,5 +3,5 @@
 // - Điền URL backend khi deploy production (ví dụ: 'https://your-backend.onrender.com')
 // - Xem hướng dẫn tại DEPLOY.md
 
-window.API_BASE_URL = '';
+window.API_BASE_URL = 'https://fashion-finder-backend-j5q4.onrender.com';
 

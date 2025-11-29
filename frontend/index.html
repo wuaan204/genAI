@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Finder - Tìm Cửa Hàng Thời Trang</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <h1>Fashion Finder</h1>
+            </div>
+            <button id="theme-toggle" class="btn-theme" title="Đổi giao diện">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+        <p class="tagline">Khám phá thời trang gần bạn với AI</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="section-header">
+                <h2>🗺️ Bản đồ</h2>
+                <div class="header-buttons">
+                    <button id="locate-btn" class="btn-locate">
+                        <span class="btn-icon">📍</span>
+                        Vị trí
+                    </button>
+                    <button id="search-shops-btn" class="btn-search-shops" disabled>
+                        <span class="btn-icon">🔍</span>
+                        Tìm cửa hàng
+                    </button>
+                </div>
+            </div>
+            <div id="map" class="map-container"></div>
+            <div class="location-info">
+                <span id="location-status">Đang chờ lấy vị trí...</span>
+            </div>
+            
+            <!-- Shops List -->
+            <div id="shops-list" class="shops-list hidden">
+                <h3>🏪 Cửa hàng gần bạn</h3>
+                <div id="shops-container"></div>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section class="chat-section">
+            <div class="section-header">
+                <h2>💬 Tư vấn AI</h2>
+            </div>
+            
+            <!-- Chat History -->
+            <div id="chat-history" class="chat-history">
+                <div class="chat-message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Xin chào! Tôi là trợ lý thời trang AI. Hãy cho phép truy cập vị trí và hỏi tôi về thời trang nhé!</p>
+                        <span class="message-time">Vừa xong</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    class="chat-input" 
+                    placeholder="Hỏi về thời trang, ví dụ: 'Xu hướng 2024?'..."
+                    autocomplete="off"
+                >
+                <button id="send-btn" class="btn-send" disabled>
+                    <span>Gửi</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,20 +1,20 @@
-# Backend Dependencies - Pinned versions for faster, reproducible builds
+# Backend Dependencies
 # Framework
-fastapi==0.109.2
-uvicorn==0.27.1
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
 
 # Google Services
-google-generativeai==0.8.5
-gspread==6.1.1
-google-auth==2.29.0
-google-auth-oauthlib==1.2.1
+google-generativeai>=0.8.0
+gspread>=6.0.0
+google-auth>=2.27.0
+google-auth-oauthlib>=1.2.0
 
 # Geospatial
-geopy==2.4.1
+geopy>=2.4.1
 
 # Utilities
-python-dotenv==1.0.1
-pydantic==2.6.1
+python-dotenv>=1.0.0
+pydantic>=2.5.0
 
 # HTTP client
-httpx==0.26.0
+httpx>=0.26.0

@@ -122,7 +122,7 @@ body::before {
 /* ===== Header ===== */
 .header {
     text-align: center;
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-md);
     background: linear-gradient(180deg, rgba(139, 92, 246, 0.15) 0%, transparent 100%);
     border-bottom: 1px solid var(--color-border);
 }
@@ -132,7 +132,7 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
     position: relative;
 }
 
@@ -200,7 +200,7 @@ body:not(.light-mode) .theme-icon {
 
 .logo h1 {
     font-family: var(--font-display);
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -208,12 +208,15 @@ body:not(.light-mode) .theme-icon {
     background-clip: text;
     letter-spacing: 1px;
     text-align: center;
+    margin: 0;
 }
 
 .tagline {
     color: var(--color-text-secondary);
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
+    margin: 0;
+    margin-top: var(--spacing-xs);
 }
 
 /* ===== Main Container ===== */
@@ -224,7 +227,7 @@ body:not(.light-mode) .theme-icon {
     max-width: 1400px;
     margin: 0 auto;
     padding: var(--spacing-lg);
-    height: calc(100vh - 140px);
+    height: calc(100vh - 100px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -927,14 +930,15 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
-        padding: var(--spacing-md) var(--spacing-sm);
-        padding-top: calc(var(--spacing-md) + 60px + env(safe-area-inset-top, 0px));
+        padding: var(--spacing-sm) var(--spacing-sm);
+        padding-top: calc(var(--spacing-sm) + 60px + env(safe-area-inset-top, 0px));
     }
     
     .header-top {
-        gap: var(--spacing-sm);
+        gap: var(--spacing-xs);
         flex-wrap: wrap;
         justify-content: center;
+        margin-bottom: 0;
     }
     
     .logo {
@@ -943,18 +947,20 @@ body:not(.light-mode) .theme-icon {
     }
     
     .logo-icon {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
     
     .logo h1 {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         letter-spacing: 0.5px;
         text-align: center;
+        margin: 0;
     }
     
     .tagline {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         margin-top: var(--spacing-xs);
+        margin-bottom: 0;
     }
     
     .btn-theme {
@@ -983,7 +989,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        height: calc(100vh - 120px);
+        height: calc(100vh - 90px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1210,23 +1216,30 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
-        padding: var(--spacing-sm) var(--spacing-xs);
-        padding-top: calc(var(--spacing-sm) + 60px + env(safe-area-inset-top, 0px));
+        padding: var(--spacing-xs) var(--spacing-xs);
+        padding-top: calc(var(--spacing-xs) + 60px + env(safe-area-inset-top, 0px));
+    }
+    
+    .header-top {
+        margin-bottom: 0;
     }
     
     .logo h1 {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         text-align: center;
+        margin: 0;
     }
     
     .tagline {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        margin-top: var(--spacing-xs);
+        margin-bottom: 0;
     }
     
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1284,9 +1297,14 @@ body:not(.light-mode) .theme-icon {
         padding-top: calc(var(--spacing-xs) + 60px + env(safe-area-inset-top, 0px));
     }
     
+    .header-top {
+        margin-bottom: 0;
+    }
+    
     .logo h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         text-align: center;
+        margin: 0;
     }
     
     .tagline {
@@ -1296,7 +1314,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-xs);
-        height: calc(100vh - 100px);
+        height: calc(100vh - 80px);
         overflow-y: auto;
         overflow-x: hidden;
     }

@@ -145,15 +145,8 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Endpoint kiểm tra trạng thái hệ thống"""
-    gemini_service = get_gemini_service()
-    
-    return {
-        "status": "healthy",
-        "gemini_connected": gemini_service.model is not None,
-        "google_sheets_configured": bool(GOOGLE_SHEETS_ID),
-        "places_api_enabled": PLACES_API_ENABLED
-    }
+    """Endpoint kiểm tra trạng thái hệ thống - không yêu cầu xác thực"""
+    return {"status": "ok"}
 
 
 @app.post("/chat", response_model=ChatResponse)

@@ -1,0 +1,38 @@
+name: Keep Backend Awake
+
+on:
+  schedule:
+    # Chạy mỗi 10 phút
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Cho phép chạy thủ công
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend Health Check
+        run: |
+          BACKEND_URL="${{ secrets.WORKFLOW_BACKEND_URL }}"
+          
+          if [ -z "$BACKEND_URL" ]; then
+            echo "⚠️  Biến môi trường WORKFLOW_BACKEND_URL chưa được cấu hình"
+            echo "Vui lòng thêm biến này trong Settings > Secrets and variables > Actions"
+            exit 0
+          fi
+          
+          echo "🔄 Đang ping backend: $BACKEND_URL"
+          
+          # Gửi request GET đến endpoint /health
+          # -f: fail silently (không fail workflow nếu request thất bại)
+          # -s: silent mode (không hiển thị progress)
+          # -o /dev/null: không hiển thị output
+          # -w: timeout 30 giây
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$BACKEND_URL" || echo "000")
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Backend đang hoạt động (HTTP $HTTP_CODE)"
+          else
+            echo "⚠️  Backend không phản hồi (HTTP $HTTP_CODE hoặc timeout)"
+            echo "Điều này không làm fail workflow, backend sẽ được ping lại sau 10 phút"
+          fi
+

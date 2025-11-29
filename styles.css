@@ -934,9 +934,9 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        padding-top: calc(var(--spacing-xs) + 50px + env(safe-area-inset-top, 0px));
-        padding-bottom: var(--spacing-xs);
+        padding: 4px var(--spacing-sm);
+        padding-top: calc(4px + 50px + env(safe-area-inset-top, 0px));
+        padding-bottom: 4px;
     }
     
     .header-top {
@@ -996,7 +996,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
-        height: calc(100vh - 85px);
+        height: calc(100vh - 70px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1092,8 +1092,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 200px);
-        min-height: 200px;
+        max-height: calc(100vh - 180px);
+        min-height: 180px;
         height: auto;
     }
     
@@ -1224,9 +1224,9 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
-        padding: var(--spacing-xs) var(--spacing-xs);
-        padding-top: calc(var(--spacing-xs) + 45px + env(safe-area-inset-top, 0px));
-        padding-bottom: 2px;
+        padding: 3px var(--spacing-xs);
+        padding-top: calc(3px + 45px + env(safe-area-inset-top, 0px));
+        padding-bottom: 3px;
     }
     
     .header-top {
@@ -1250,7 +1250,7 @@ body:not(.light-mode) .theme-icon {
     .main-container {
         padding: var(--spacing-xs);
         gap: var(--spacing-xs);
-        height: calc(100vh - 75px);
+        height: calc(100vh - 60px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -1291,8 +1291,8 @@ body:not(.light-mode) .theme-icon {
     }
     
     .chat-section {
-        max-height: calc(100vh - 170px);
-        min-height: 180px;
+        max-height: calc(100vh - 150px);
+        min-height: 160px;
         height: auto;
     }
     

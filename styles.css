@@ -657,8 +657,9 @@ body::before {
 .btn-send {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-md) var(--spacing-lg);
+    justify-content: center;
+    gap: 0;
+    padding: var(--spacing-md);
     background: var(--gradient-primary);
     border: none;
     border-radius: var(--radius-full);
@@ -668,6 +669,8 @@ body::before {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .btn-send:hover:not(:disabled) {
@@ -682,10 +685,12 @@ body::before {
 
 .btn-send svg {
     transition: transform 0.3s ease;
+    width: 20px;
+    height: 20px;
 }
 
 .btn-send:hover:not(:disabled) svg {
-    transform: translateX(3px);
+    transform: translateX(2px);
 }
 
 /* ===== Typing Indicator ===== */
@@ -907,11 +912,12 @@ body::before {
     .header-top {
         gap: var(--spacing-sm);
         flex-wrap: wrap;
+        justify-content: center;
     }
     
     .logo {
-        flex: 1;
-        min-width: 0;
+        flex: 0 0 auto;
+        justify-content: center;
     }
     
     .logo-icon {
@@ -929,8 +935,10 @@ body::before {
     }
     
     .btn-theme {
-        position: static;
-        transform: none;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
         width: 40px;
         height: 40px;
         flex-shrink: 0;
@@ -950,7 +958,7 @@ body::before {
     
     .section-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: var(--spacing-sm);
         margin-bottom: var(--spacing-sm);
     }
@@ -958,6 +966,8 @@ body::before {
     .section-header h2 {
         font-size: 1.2rem;
         margin: 0;
+        text-align: center;
+        width: 100%;
     }
     
     .header-buttons {
@@ -1086,7 +1096,18 @@ body::before {
     }
     
     .btn-send span {
-        display: none;
+        display: none !important;
+    }
+    
+    .btn-send {
+        padding: var(--spacing-sm);
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .btn-send svg {
+        width: 20px;
+        height: 20px;
     }
     
     .btn-send svg {

@@ -210,7 +210,7 @@ body {
 }
   /* ===== Main Container ===== */ .main-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: var(--spacing-lg);
   max-width: 1400px;
   margin: 0 auto;
@@ -519,7 +519,11 @@ body {
   /* */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  display: block;
 
+}
+.shops-list.hidden {
+  display: none !important;
 }
 .shops-list::-webkit-scrollbar {
   width: 4px;
@@ -1030,9 +1034,19 @@ body {
 
   }
   .map-section {
-    max-height: 40vh;
+    max-height: none;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 
+  }
+  .map-section .map-container {
+    flex-shrink: 0;
+  }
+  .map-section .shops-list {
+    flex: 1;
+    min-height: 200px;
   }
   .location-info {
     font-size: 0.85rem;
@@ -1154,7 +1168,11 @@ body {
     max-height: 300px;
     padding: var(--spacing-sm);
     margin-top: var(--spacing-sm);
+    display: block !important;
 
+  }
+  .shops-list.hidden {
+    display: none !important;
   }
   .shops-list h3 {
     font-size: 0.95rem;
@@ -1271,9 +1289,19 @@ body {
 
   }
   .map-section {
-    max-height: 35vh;
+    max-height: none;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 
+  }
+  .map-section .map-container {
+    flex-shrink: 0;
+  }
+  .map-section .shops-list {
+    flex: 1;
+    min-height: 200px;
   }
   .chat-section {
     flex: 1;

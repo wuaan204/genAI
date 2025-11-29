@@ -6,25 +6,47 @@
 // ===== Configuration =====
 // Tự động detect API URL: localhost nếu chạy local, hoặc lấy từ environment/config
 function getApiBaseUrl() {
-    // Nếu có biến môi trường từ build (cho production)
+    let apiUrl = null;
+    let source = '';
+    
+    // Ưu tiên 1: Biến môi trường từ config.js (cho production)
     if (typeof window.API_BASE_URL !== 'undefined' && window.API_BASE_URL) {
-        return window.API_BASE_URL;
+        apiUrl = window.API_BASE_URL;
+        source = 'config.js';
+    }
+    // Ưu tiên 2: Meta tag trong HTML
+    else if (document.querySelector('meta[name="api-base-url"]')) {
+        const metaApiUrl = document.querySelector('meta[name="api-base-url"]');
+        const metaValue = metaApiUrl.getAttribute('content');
+        if (metaValue && metaValue.trim()) {
+            apiUrl = metaValue.trim();
+            source = 'meta tag';
+        }
+    }
+    // Ưu tiên 3: Localhost (development)
+    else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        apiUrl = 'http://localhost:8000';
+        source = 'localhost detection';
+    }
+    // Fallback: cùng origin (không khuyến khích cho production)
+    else {
+        apiUrl = window.location.origin.replace(/\/$/, '');
+        source = 'same origin (fallback)';
     }
     
-    // Nếu đang chạy trên localhost, dùng localhost:8000
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return 'http://localhost:8000';
+    // Log để debug
+    console.log(`[Fashion Finder] API URL: ${apiUrl} (from ${source})`);
+    
+    // Validate URL
+    if (!apiUrl || apiUrl.trim() === '') {
+        console.error('[Fashion Finder] API URL is empty!');
+        return null;
     }
     
-    // Production: lấy từ meta tag hoặc mặc định (sẽ được thay thế khi deploy)
-    const metaApiUrl = document.querySelector('meta[name="api-base-url"]');
-    if (metaApiUrl) {
-        return metaApiUrl.getAttribute('content');
-    }
+    // Đảm bảo không có trailing slash
+    apiUrl = apiUrl.replace(/\/$/, '');
     
-    // Fallback: dùng relative URL (cùng origin với frontend)
-    // Hoặc trả về empty string để dùng relative paths
-    return window.location.origin.replace(/\/$/, '');
+    return apiUrl;
 }
 
 const CONFIG = {
@@ -32,6 +54,13 @@ const CONFIG = {
     DEFAULT_LOCATION: { lat: 21.0285, lon: 105.8542 },
     MAP_ZOOM: 14
 };
+
+// Log config khi khởi động
+console.log('[Fashion Finder] Config initialized:', {
+    API_BASE_URL: CONFIG.API_BASE_URL,
+    Hostname: window.location.hostname,
+    Origin: window.location.origin
+});
 
 // ===== State Management =====
 const state = {
@@ -329,6 +358,11 @@ function updateWelcomeMessage(hasLocation) {
  * Helper: Gọi API chat với message
  */
 async function callChatAPI(message) {
+    // Kiểm tra API URL
+    if (!CONFIG.API_BASE_URL) {
+        throw new Error('API URL chưa được cấu hình. Vui lòng kiểm tra lại cài đặt.');
+    }
+
     // Validate và chuẩn bị data
     const requestData = {
         lat: parseFloat(state.userLocation.lat),
@@ -344,29 +378,63 @@ async function callChatAPI(message) {
         throw new Error('Vị trí không hợp lệ. Vui lòng lấy lại vị trí.');
     }
 
-    const response = await fetch(`${CONFIG.API_BASE_URL}/chat`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-    });
+    const apiUrl = `${CONFIG.API_BASE_URL}/chat`;
+    console.log('[Fashion Finder] Sending request to:', apiUrl);
 
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        
-        // Xử lý lỗi validation (422)
-        if (response.status === 422 && errorData.detail) {
-            const details = Array.isArray(errorData.detail) 
-                ? errorData.detail.map(e => `${e.loc.join('.')}: ${e.msg}`).join('; ')
-                : errorData.detail;
-            throw new Error(`Dữ liệu không hợp lệ: ${details}`);
+    try {
+        // Thêm timeout cho fetch (30 giây)
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData),
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            let errorData = {};
+            try {
+                errorData = await response.json();
+            } catch (e) {
+                console.error('[Fashion Finder] Failed to parse error response:', e);
+            }
+            
+            // Xử lý lỗi validation (422)
+            if (response.status === 422 && errorData.detail) {
+                const details = Array.isArray(errorData.detail) 
+                    ? errorData.detail.map(e => `${e.loc.join('.')}: ${e.msg}`).join('; ')
+                    : errorData.detail;
+                throw new Error(`Dữ liệu không hợp lệ: ${details}`);
+            }
+            
+            // Xử lý lỗi CORS
+            if (response.status === 0 || response.type === 'opaque') {
+                throw new Error(`Lỗi kết nối: CORS hoặc mạng không khả dụng. Kiểm tra lại API URL: ${CONFIG.API_BASE_URL}`);
+            }
+            
+            throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        // Xử lý lỗi network
+        if (error.name === 'AbortError') {
+            throw new Error('Hết thời gian chờ. Backend có thể đang không phản hồi. Vui lòng thử lại sau.');
         }
         
-        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+            throw new Error(`Không thể kết nối đến backend API (${CONFIG.API_BASE_URL}). Vui lòng kiểm tra:\n1. Backend đã được khởi động chưa?\n2. API URL có đúng không?\n3. Có vấn đề về CORS không?`);
+        }
+        
+        // Re-throw error nếu đã được xử lý
+        throw error;
     }
-
-    return await response.json();
 }
 
 /**
@@ -391,7 +459,10 @@ async function sendMessage() {
     } catch (error) {
         console.error('Lỗi gửi tin nhắn:', error);
         hideTypingIndicator();
-        addBotMessage('Xin lỗi, đã xảy ra lỗi khi xử lý yêu cầu. Vui lòng thử lại sau.');
+        
+        // Hiển thị thông báo lỗi chi tiết
+        const errorMessage = error.message || 'Đã xảy ra lỗi không xác định';
+        addBotMessage(`❌ **Lỗi:** ${errorMessage}\n\nVui lòng kiểm tra:\n- Kết nối mạng\n- Backend API có đang hoạt động không\n- Mở Console (F12) để xem chi tiết`);
     }
 }
 
@@ -414,10 +485,18 @@ async function searchNearbyShops() {
         displayShopsOnMap(data.shops);
         displayShopsList(data.shops);
         
-        updateLocationStatus(`Tìm thấy ${data.shops.length} cửa hàng`, 'success');
+        if (data.shops && data.shops.length > 0) {
+            updateLocationStatus(`Tìm thấy ${data.shops.length} cửa hàng`, 'success');
+        } else {
+            updateLocationStatus('Không tìm thấy cửa hàng nào trong khu vực này', 'info');
+        }
     } catch (error) {
         console.error('Lỗi tìm kiếm:', error);
-        updateLocationStatus('Lỗi tìm kiếm cửa hàng', 'error');
+        const errorMessage = error.message || 'Lỗi không xác định';
+        
+        // Hiển thị lỗi trong location status và chat
+        updateLocationStatus(`Lỗi: ${errorMessage.substring(0, 50)}...`, 'error');
+        addBotMessage(`❌ **Lỗi tìm kiếm:** ${errorMessage}\n\nVui lòng kiểm tra:\n- API URL: ${CONFIG.API_BASE_URL}\n- Backend có đang hoạt động không\n- Mở Console (F12) để xem chi tiết`);
     } finally {
         elements.searchShopsBtn.disabled = false;
         elements.searchShopsBtn.innerHTML = originalContent;

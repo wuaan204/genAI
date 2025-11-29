@@ -886,7 +886,7 @@ body::before {
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
     html {
-        font-size: 14px;
+        font-size: 15px;
     }
     
     body {
@@ -954,41 +954,45 @@ body::before {
     }
     
     .section-header h2 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         margin: 0;
     }
     
     .header-buttons {
         display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-xs);
-        width: 100%;
+        flex-wrap: nowrap;
+        gap: var(--spacing-sm);
+        width: auto;
+        justify-content: flex-start;
     }
     
     .btn-locate,
     .btn-search-shops,
     .btn-settings {
-        flex: 1;
-        min-width: calc(33.333% - var(--spacing-xs));
-        font-size: 0.75rem;
-        padding: var(--spacing-sm) var(--spacing-xs);
+        flex: 0 0 auto;
+        min-width: auto;
+        width: auto;
+        font-size: 0.8rem;
+        padding: var(--spacing-sm) var(--spacing-md);
         min-height: 44px; /* Touch target tối thiểu */
         touch-action: manipulation; /* Tắt double-tap zoom */
+        white-space: nowrap;
     }
     
     .btn-icon {
-        font-size: 0.9rem;
+        font-size: 1rem;
+        margin-right: var(--spacing-xs);
     }
     
     .map-container {
-        min-height: 250px;
-        max-height: 50vh;
+        min-height: 350px;
+        max-height: 60vh;
         border-radius: var(--radius-sm);
     }
     
     .location-info {
-        font-size: 0.75rem;
-        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.85rem;
+        padding: var(--spacing-sm) var(--spacing-md);
         margin-top: var(--spacing-sm);
     }
     
@@ -1045,9 +1049,9 @@ body::before {
     }
     
     .message-content {
-        padding: var(--spacing-sm);
+        padding: var(--spacing-md);
         max-width: 80%;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     
     .message-content p {
@@ -1094,13 +1098,13 @@ body::before {
     }
     
     .shops-list h3 {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         margin-bottom: var(--spacing-xs);
     }
     
     .shop-card {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        font-size: 0.8rem;
+        padding: var(--spacing-sm);
+        font-size: 0.85rem;
         min-height: 44px; /* Touch target */
     }
     
@@ -1117,8 +1121,8 @@ body::before {
     }
     
     .shop-info {
-        font-size: 0.75rem;
-        line-height: 1.4;
+        font-size: 0.8rem;
+        line-height: 1.5;
     }
     
     .shop-distance {
@@ -1136,7 +1140,7 @@ body::before {
 /* ===== Mobile Small (≤ 480px) ===== */
 @media (max-width: 480px) {
     html {
-        font-size: 13px;
+        font-size: 14px;
     }
     
     .header {
@@ -1158,23 +1162,53 @@ body::before {
     }
     
     .section-header h2 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .header-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
     }
     
     .btn-locate,
     .btn-search-shops,
     .btn-settings {
-        min-width: 100%;
-        width: 100%;
+        flex: 1 1 auto;
+        min-width: calc(33.333% - var(--spacing-xs) * 2/3);
+        width: auto;
+        font-size: 0.75rem;
+        padding: var(--spacing-sm);
+    }
+    
+    .btn-locate .btn-icon,
+    .btn-search-shops .btn-icon,
+    .btn-settings .btn-icon {
+        margin-right: 0;
+        font-size: 1.1rem;
+    }
+    
+    /* Ẩn text trên màn hình rất nhỏ, chỉ hiển thị icon */
+    .btn-locate,
+    .btn-search-shops,
+    .btn-settings {
+        font-size: 0;
+        padding: var(--spacing-sm);
+        min-width: 44px;
+        width: 44px;
+        justify-content: center;
+    }
+    
+    .btn-locate .btn-icon,
+    .btn-search-shops .btn-icon,
+    .btn-settings .btn-icon {
+        font-size: 1.2rem;
+        margin: 0;
     }
     
     .map-container {
-        min-height: 200px;
-        max-height: 40vh;
+        min-height: 300px;
+        max-height: 55vh;
     }
     
     .chat-section {
@@ -1184,7 +1218,7 @@ body::before {
     
     .message-content {
         max-width: 75%;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 }
 

@@ -4,13 +4,24 @@ services:
     env: python
     region: singapore
     plan: free
-    buildCommand: cd backend && pip install -r requirements.txt
-    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    # Tối ưu build: sử dụng pip cache và upgrade pip
+    # Render tự động cache pip packages, nên build lần 2+ sẽ nhanh hơn
+    buildCommand: |
+      cd backend &&
+      python -m pip install --upgrade --quiet pip setuptools wheel &&
+      pip install --cache-dir /tmp/pip-cache --no-warn-script-location -r requirements.txt
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT --workers 2
     envVars:
       - key: PORT
         value: 8000
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: 3.11.9
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: PIP_NO_CACHE_DIR
+        value: 0
+      - key: PIP_CACHE_DIR
+        value: /tmp/pip-cache
       - key: GEMINI_API_KEY
         sync: false  # Phải set thủ công trong Render dashboard
       - key: GOOGLE_SHEETS_ID

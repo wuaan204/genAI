@@ -4,7 +4,7 @@ fastapi==0.109.2
 uvicorn[standard]==0.27.1
 
 # Google Services
-google-generativeai==0.4.3
+google-generativeai==0.8.5
 gspread==6.1.1
 google-auth==2.29.0
 google-auth-oauthlib==1.2.1

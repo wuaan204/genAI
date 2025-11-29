@@ -81,7 +81,6 @@ function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
-        elements.themeToggle.querySelector('.theme-icon').textContent = '☀️';
     }
 }
 
@@ -90,13 +89,10 @@ function initTheme() {
  */
 function toggleTheme() {
     const isLight = document.body.classList.toggle('light-mode');
-    const themeIcon = elements.themeToggle.querySelector('.theme-icon');
     
     if (isLight) {
-        themeIcon.textContent = '☀️';
         localStorage.setItem('theme', 'light');
     } else {
-        themeIcon.textContent = '🌙';
         localStorage.setItem('theme', 'dark');
     }
 }
@@ -292,7 +288,7 @@ function updateUserMarker(lat, lon) {
 
     state.userMarker = L.marker([lat, lon], { icon: userIcon })
         .addTo(state.map)
-        .bindPopup('<strong>📍 Vị trí của bạn</strong>');
+        .bindPopup('<strong>Vị trí của bạn</strong>');
 }
 
 /**
@@ -318,9 +314,9 @@ function updateWelcomeMessage(hasLocation) {
     const welcomeMsg = elements.chatHistory.querySelector('.bot-message .message-content p');
     if (welcomeMsg) {
         if (hasLocation) {
-            welcomeMsg.innerHTML = 'Xin chào! 👋 Tôi là trợ lý thời trang AI. Bạn có thể hỏi tôi về xu hướng, cách phối đồ, hoặc tìm cửa hàng gần đây!';
+            welcomeMsg.innerHTML = 'Xin chào! Tôi là trợ lý thời trang AI. Bạn có thể hỏi tôi về xu hướng, cách phối đồ, hoặc tìm cửa hàng gần đây!';
         } else {
-            welcomeMsg.innerHTML = 'Xin chào! 👋 Đang sử dụng vị trí mặc định (Hà Nội). Bạn có thể hỏi tôi về thời trang hoặc tìm cửa hàng!';
+            welcomeMsg.innerHTML = 'Xin chào! Đang sử dụng vị trí mặc định (Hà Nội). Bạn có thể hỏi tôi về thời trang hoặc tìm cửa hàng!';
         }
     }
 }
@@ -405,7 +401,7 @@ async function searchNearbyShops() {
 
     const originalContent = elements.searchShopsBtn.innerHTML;
     elements.searchShopsBtn.disabled = true;
-    elements.searchShopsBtn.innerHTML = '<span class="btn-icon">⏳</span> Đang tìm...';
+    elements.searchShopsBtn.innerHTML = 'Đang tìm...';
     updateLocationStatus('Đang tìm kiếm cửa hàng...', 'loading');
 
     try {
@@ -458,14 +454,14 @@ function displayShopsOnMap(shops) {
             .addTo(state.map)
             .bindPopup(`
                 <div class="map-popup">
-                    <h4>🏪 ${shopNameEscaped}</h4>
-                    <p>📍 ${shopAddressEscaped}</p>
-                    <p>📏 ${shop.distance_km} km</p>
-                    <p>🏷️ ${escapeHtml(shop.category)}</p>
-                    <p>💰 ${escapeHtml(shop.price_range)}</p>
-                    ${promoEscaped ? `<p class="promo">🎁 ${promoEscaped}</p>` : ''}
+                    <h4>${shopNameEscaped}</h4>
+                    <p>${shopAddressEscaped}</p>
+                    <p>${shop.distance_km} km</p>
+                    <p>${escapeHtml(shop.category)}</p>
+                    <p>${escapeHtml(shop.price_range)}</p>
+                    ${promoEscaped ? `<p class="promo">${promoEscaped}</p>` : ''}
                     <button class="popup-btn" data-shop-name="${shopNameEscaped}" data-shop-address="${shopAddressEscaped}">
-                        🗺️ Mở Google Maps
+                        Mở Google Maps
                     </button>
                 </div>
             `);
@@ -521,14 +517,14 @@ function displayShopsList(shops) {
                     <span class="shop-distance">${shop.distance_km} km</span>
                 </div>
                 <button class="btn-open-maps" title="Mở trong Google Maps">
-                    🗺️
+                    Maps
                 </button>
             </div>
             <div class="shop-info">
-                📍 ${addressEscaped}<br>
-                🏷️ ${categoryEscaped} | 💰 ${priceEscaped}
+                ${addressEscaped}<br>
+                ${categoryEscaped} | ${priceEscaped}
             </div>
-            ${promoEscaped ? `<div class="shop-promo">🎁 ${promoEscaped}</div>` : ''}
+            ${promoEscaped ? `<div class="shop-promo">${promoEscaped}</div>` : ''}
         `;
 
         const openMapsBtn = shopCard.querySelector('.btn-open-maps');
@@ -564,7 +560,7 @@ function addUserMessage(message) {
     const messageEl = document.createElement('div');
     messageEl.className = 'chat-message user-message';
     messageEl.innerHTML = `
-        <div class="message-avatar">👤</div>
+        <div class="message-avatar">Bạn</div>
         <div class="message-content">
             <p>${escapeHtml(message)}</p>
             <span class="message-time">${getCurrentTime()}</span>
@@ -582,7 +578,7 @@ function addBotMessage(message) {
     const messageEl = document.createElement('div');
     messageEl.className = 'chat-message bot-message';
     messageEl.innerHTML = `
-        <div class="message-avatar">🤖</div>
+        <div class="message-avatar">AI</div>
         <div class="message-content">
             <p>${formatBotMessage(message)}</p>
             <span class="message-time">${getCurrentTime()}</span>
@@ -638,7 +634,7 @@ function showTypingIndicator() {
     typingEl.id = 'typing-indicator';
     typingEl.className = 'chat-message bot-message';
     typingEl.innerHTML = `
-        <div class="message-avatar">🤖</div>
+        <div class="message-avatar">AI</div>
         <div class="message-content typing-content">
             <div class="typing-dots">
                 <span></span>

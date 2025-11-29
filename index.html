@@ -27,11 +27,10 @@
     <header class="header">
         <div class="header-top">
             <div class="logo">
-                <span class="logo-icon">✨</span>
                 <h1>Fashion Finder</h1>
             </div>
             <button id="theme-toggle" class="btn-theme" title="Đổi giao diện">
-                <span class="theme-icon">🌙</span>
+                <span class="theme-icon"></span>
             </button>
         </div>
         <p class="tagline">Khám phá thời trang gần bạn với AI</p>
@@ -42,18 +41,15 @@
         <!-- Map Section -->
         <section class="map-section">
             <div class="section-header">
-                <h2>🗺️ Bản đồ</h2>
+                <h2>Bản đồ</h2>
                 <div class="header-buttons">
                     <button id="settings-btn" class="btn-settings" title="Cài đặt tìm kiếm">
-                        <span class="btn-icon">⚙️</span>
                         Cài đặt
                     </button>
                     <button id="locate-btn" class="btn-locate">
-                        <span class="btn-icon">📍</span>
                         Vị trí
                     </button>
                     <button id="search-shops-btn" class="btn-search-shops" disabled>
-                        <span class="btn-icon">🔍</span>
                         Tìm cửa hàng
                     </button>
                 </div>
@@ -61,7 +57,7 @@
             
             <!-- Settings Panel -->
             <div id="settings-panel" class="settings-panel hidden">
-                <h3>⚙️ Cài đặt tìm kiếm</h3>
+                <h3>Cài đặt tìm kiếm</h3>
                 <div class="settings-item">
                     <label for="priority-radius">Bán kính ưu tiên (km):</label>
                     <input type="number" id="priority-radius" min="1" max="100" value="20" step="1">
@@ -83,7 +79,7 @@
             
             <!-- Shops List -->
             <div id="shops-list" class="shops-list hidden">
-                <h3>🏪 Cửa hàng gần bạn</h3>
+                <h3>Cửa hàng gần bạn</h3>
                 <div id="shops-container"></div>
             </div>
         </section>
@@ -91,13 +87,13 @@
         <!-- Chat Section -->
         <section class="chat-section">
             <div class="section-header">
-                <h2>💬 Tư vấn AI</h2>
+                <h2>Tư vấn AI</h2>
             </div>
             
             <!-- Chat History -->
             <div id="chat-history" class="chat-history">
                 <div class="chat-message bot-message">
-                    <div class="message-avatar">🤖</div>
+                    <div class="message-avatar">AI</div>
                     <div class="message-content">
                         <p>Xin chào! Tôi là trợ lý thời trang AI. Hãy cho phép truy cập vị trí và hỏi tôi về thời trang nhé!</p>
                         <span class="message-time">Vừa xong</span>
@@ -116,9 +112,6 @@
                 >
                 <button id="send-btn" class="btn-send" disabled>
                     <span>Gửi</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
-                    </svg>
                 </button>
             </div>
         </section>

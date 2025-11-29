@@ -47,8 +47,8 @@ class ChatRequest(BaseModel):
     lat: float = Field(..., ge=-90, le=90, description="Vĩ độ vị trí người dùng (-90 đến 90)")
     lon: float = Field(..., ge=-180, le=180, description="Kinh độ vị trí người dùng (-180 đến 180)")
     message: str = Field(..., min_length=1, max_length=500, description="Câu hỏi của người dùng")
-    priority_radius_km: Optional[float] = Field(None, ge=0.1, le=50, description="Bán kính ưu tiên (km)")
-    max_radius_km: Optional[float] = Field(None, ge=0.1, le=100, description="Bán kính tối đa (km)")
+    priority_radius_km: Optional[float] = Field(None, ge=0.1, le=100, description="Bán kính ưu tiên (km)")
+    max_radius_km: Optional[float] = Field(None, ge=0.1, le=1000, description="Bán kính tối đa (km)")
     max_shops: Optional[int] = Field(None, ge=1, le=100, description="Số lượng cửa hàng tối đa")
 
 class ShopResponse(BaseModel):
@@ -265,4 +265,13 @@ if __name__ == "__main__":
     logger.info(f"Khởi động server tại http://{host}:{port}")
     logger.info(f"API docs: http://{host}:{port}/docs")
     
-    uvicorn.run(app, host=host, port=port, reload=True)
+    # Sử dụng import string để enable reload (không có cảnh báo)
+    # Hoặc tắt reload nếu không cần
+    use_reload = os.getenv('RELOAD', 'false').lower() == 'true'
+    
+    if use_reload:
+        # Chạy với reload (cần import string)
+        uvicorn.run("app:app", host=host, port=port, reload=True)
+    else:
+        # Chạy không reload (đơn giản, không cảnh báo)
+        uvicorn.run(app, host=host, port=port, reload=False)

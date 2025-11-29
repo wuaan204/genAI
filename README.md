@@ -100,25 +100,50 @@ MAX_SHOPS=30
 - Nếu không có API key, ứng dụng vẫn hoạt động với phản hồi mặc định
 - File `.env` đã được loại khỏi git, cần tự tạo trên mỗi máy
 
-### Bước 4: Khởi động Backend
+### Bước 4: Khởi động Ứng dụng
 
+**Cách 1: Sử dụng Script Tự động (Ko khuyến nghị)**
+
+Windows PowerShell:
+```powershell
+.\start.ps1
+```
+
+Windows CMD:
+```cmd
+start.bat
+```
+
+Script sẽ tự động:
+- Kiểm tra Python và dependencies
+- Khởi động Backend tại http://localhost:8000
+- Khởi động Frontend tại http://localhost:5500
+- Tự động mở trình duyệt
+
+**Cách 2: Khởi động Thủ công**
+
+Terminal 1 - Backend (không reload):
 ```bash
 cd backend
-python app.py
+py app.py
 ```
 
-Server sẽ chạy tại: `http://localhost:8000`
+Hoặc Backend với reload (tự động reload khi code thay đổi):
+```bash
+cd backend
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
 
-### Bước 5: Khởi động Frontend
-
-Mở file `frontend/index.html` trong trình duyệt hoặc dùng HTTP server:
-
+Terminal 2 - Frontend:
 ```bash
 cd frontend
-python -m http.server 5500
+py -m http.server 5500
 ```
 
-Truy cập: `http://localhost:5500`
+Truy cập:
+- Frontend: http://localhost:5500
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
 
 ## Sử dụng
 

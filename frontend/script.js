@@ -306,23 +306,40 @@ function updateWelcomeMessage(hasLocation) {
  * Helper: Gọi API chat với message
  */
 async function callChatAPI(message) {
+    // Validate và chuẩn bị data
+    const requestData = {
+        lat: parseFloat(state.userLocation.lat),
+        lon: parseFloat(state.userLocation.lon),
+        message: String(message).trim(),
+        priority_radius_km: parseFloat(state.settings.priorityRadiusKm) || 20.0,
+        max_radius_km: parseFloat(state.settings.maxRadiusKm) || 500.0,
+        max_shops: parseInt(state.settings.maxShops) || 30
+    };
+
+    // Validate coordinates
+    if (isNaN(requestData.lat) || isNaN(requestData.lon)) {
+        throw new Error('Vị trí không hợp lệ. Vui lòng lấy lại vị trí.');
+    }
+
     const response = await fetch(`${CONFIG.API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            lat: state.userLocation.lat,
-            lon: state.userLocation.lon,
-            message: message,
-            priority_radius_km: state.settings.priorityRadiusKm,
-            max_radius_km: state.settings.maxRadiusKm,
-            max_shops: state.settings.maxShops
-        })
+        body: JSON.stringify(requestData)
     });
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        
+        // Xử lý lỗi validation (422)
+        if (response.status === 422 && errorData.detail) {
+            const details = Array.isArray(errorData.detail) 
+                ? errorData.detail.map(e => `${e.loc.join('.')}: ${e.msg}`).join('; ')
+                : errorData.detail;
+            throw new Error(`Dữ liệu không hợp lệ: ${details}`);
+        }
+        
         throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
     }
 

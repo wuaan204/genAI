@@ -1481,3 +1481,30 @@ body:not(.light-mode) .theme-icon {
         padding-bottom: 1rem; /* Thêm đệm dưới đáy để không sát mép */
     }
 }
+
+/* ===== TỐI ƯU MOBILE: ẨN LIST & THÔNG BÁO ===== */
+@media (max-width: 1024px) {
+    /* 1. Ẩn hoàn toàn danh sách cửa hàng bên dưới */
+    .shops-list {
+        display: none !important;
+    }
+
+    /* 2. Ẩn dòng thông báo "Tìm thấy X cửa hàng" */
+    .location-info {
+        display: none !important;
+    }
+
+    /* 3. Tăng kích thước bản đồ lên để dễ ấn vào các điểm (Marker) */
+    /* Vì đã bỏ list nên ta có nhiều chỗ trống hơn cho Map */
+    .map-container {
+        height: 55vh !important; /* Bản đồ chiếm 55% chiều cao màn hình */
+        min-height: 400px !important; /* Đảm bảo không quá bé */
+    }
+
+    /* 4. Tinh chỉnh lại khoảng cách của khung chứa bản đồ */
+    .map-section {
+        height: auto !important;
+        padding-bottom: 0 !important; /* Bỏ khoảng đệm thừa ở dưới */
+        gap: 0 !important;
+    }
+}

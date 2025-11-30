@@ -81,31 +81,38 @@ body.light-mode::before {
 }
 
 html {
-    font-size: 18px;
+    font-size: 16px; /* Chuẩn hóa font size */
     scroll-behavior: smooth;
-    /* Ngăn text size adjustment trên iOS */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: auto; 
+    min-height: 100%;
 }
 
 body {
     font-family: var(--font-body);
     background: var(--gradient-bg);
     color: var(--color-text-primary);
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height */
-    height: -webkit-fill-available; /* iOS Safari */
     line-height: 1.6;
-    overflow: hidden;
     margin: 0;
     padding: 0;
+    /* QUAN TRỌNG: Cho phép cuộn trang mặc định, chỉ khóa trên Desktop */
+    overflow-x: hidden;
+    overflow-y: auto; 
+    min-height: 100vh;
     /* Cải thiện rendering trên mobile */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* Ngăn pull-to-refresh trên mobile */
     overscroll-behavior-y: contain;
+}
+
+/* Chỉ khóa cuộn trang trên màn hình lớn (Desktop) để tạo hiệu ứng App */
+@media (min-width: 1025px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
 }
 
 /* Background Pattern */
@@ -118,8 +125,7 @@ body::before {
     height: 100%;
     background-image: 
         radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
@@ -229,36 +235,52 @@ body:not(.light-mode) .theme-icon {
 /* ===== Main Container ===== */
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* Mặc định 2 cột cho Desktop */
     gap: var(--spacing-lg);
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: var(--spacing-lg);
-    height: calc(100vh - var(--header-height, 70px));
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    align-items: stretch;
-}
-
-/* ===== Tablet (768px - 1024px) ===== */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .main-container {
-        grid-template-columns: 1fr;
-        height: calc(100vh - var(--header-height, 70px));
-        padding: var(--spacing-md);
-    }
     
-    .map-section,
-    .chat-section {
-        max-height: calc(100vh - var(--header-height, 70px) - var(--spacing-md) * 2);
-    }
+    /* Logic chiều cao cho Desktop */
+    height: calc(100vh - 80px); /* 80px là chiều cao ước lượng header */
+    min-height: 0; 
 }
 
+/* ===== Tablet & Mobile Styles (Dưới 1024px) ===== */
 @media (max-width: 1024px) {
     .main-container {
-        grid-template-columns: 1fr;
-        height: calc(100vh - var(--header-height, 70px));
+        /* Chuyển sang dạng Flex cột để các phần tử xếp chồng lên nhau */
+        display: flex;
+        flex-direction: column;
+        
+        /* QUAN TRỌNG: Cho phép chiều cao tự động giãn theo nội dung */
+        height: auto; 
+        min-height: auto;
+        padding: var(--spacing-md);
+        
+        /* Cho phép trang web cuộn xuống */
+        overflow-y: visible;
+    }
+    
+    /* Map Section trên Mobile/Tablet */
+    .map-section {
+        /* Đặt chiều cao cố định đủ lớn để dễ thao tác */
+        height: 500px; 
+        max-height: none; /* Bỏ giới hạn max-height */
+        flex-shrink: 0; /* Không cho phép co nhỏ */
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .map-container {
+        min-height: 300px; /* Đảm bảo bản đồ luôn hiển thị rõ */
+    }
+    
+    /* Chat Section trên Mobile/Tablet */
+    .chat-section {
+        /* Đặt chiều cao cố định để nội dung chat có thể cuộn bên trong */
+        height: 600px; /* Hoặc 80vh tùy ý */
+        max-height: none;
+        flex: 1;
     }
 }
 
@@ -277,37 +299,33 @@ body:not(.light-mode) .theme-icon {
     color: var(--color-text-primary);
 }
 
-/* ===== Map Section ===== */
+/* ===== Map Section Styles (Chung) ===== */
 .map-section {
-    background: var(--gradient-card);
+    background: var(--color-bg-card); /* Đổi gradient thành màu nền đặc để đỡ rối mắt */
     border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 0;
-    max-height: 100%;
     overflow: hidden;
 }
 
 .map-container {
     flex: 1;
-    min-height: 400px;
-    max-height: 100%;
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 2px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
-    /* Tối ưu cho mobile */
-    touch-action: pan-x pan-y pinch-zoom;
     position: relative;
+    z-index: 1;
 }
 
+/* ===== Fix lỗi hiển thị nút bấm trên mobile ===== */
 .header-buttons {
     display: flex;
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình quá bé */
     gap: var(--spacing-sm);
+    justify-content: center;
 }
 
 .btn-locate,
@@ -326,6 +344,8 @@ body:not(.light-mode) .theme-icon {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
+    white-space: nowrap; /* Không ngắt dòng chữ trong nút */
+    flex: 1 0 auto; /* Nút tự co giãn */
 }
 
 .btn-locate {
@@ -455,33 +475,24 @@ body:not(.light-mode) .theme-icon {
     box-shadow: var(--shadow-glow);
 }
 
-/* ===== Chat Section ===== */
+/* ===== Chat Section Styles (Chung) ===== */
 .chat-section {
-    background: var(--gradient-card);
+    background: var(--color-bg-card);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 0;
-    max-height: 100%;
     overflow: hidden;
 }
 
 .chat-history {
     flex: 1;
-    min-height: 0;
     overflow-y: auto;
-    overflow-x: hidden;
     padding-right: var(--spacing-sm);
     margin-bottom: var(--spacing-md);
-    /* Cải thiện scroll trên mobile */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    /* Tối ưu rendering */
-    will-change: scroll-position;
+    scroll-behavior: smooth;
 }
 
 /* Custom Scrollbar */
@@ -564,19 +575,12 @@ body:not(.light-mode) .theme-icon {
 }
 
 /* ===== Shops List (trong Map Section) ===== */
+/* ===== Shops List Fix ===== */
 .shops-list {
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--color-bg-card-hover);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    max-height: 400px;
-    min-height: 0;
+    /* Đảm bảo danh sách shop không chiếm hết chỗ của bản đồ trên mobile */
+    max-height: 200px; 
     overflow-y: auto;
-    overflow-x: hidden;
-    /* Cải thiện scroll trên mobile */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    margin-top: var(--spacing-md);
 }
 
 .shops-list::-webkit-scrollbar {
@@ -968,6 +972,11 @@ body:not(.light-mode) .theme-icon {
     }
     
     .header {
+        position: sticky; /* Giữ header ở trên cùng khi cuộn */
+        top: 0;
+        z-index: 100;
+        background: var(--color-bg-dark); /* Cần nền đặc khi sticky */
+        backdrop-filter: blur(10px);
         padding: 4px var(--spacing-sm);
         padding-top: calc(8px + env(safe-area-inset-top, 0px));
         padding-bottom: 4px;

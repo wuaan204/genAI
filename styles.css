@@ -1445,3 +1445,39 @@ body:not(.light-mode) .theme-icon {
 .shop-card:nth-child(1) { animation-delay: 0.1s; }
 .shop-card:nth-child(2) { animation-delay: 0.2s; }
 .shop-card:nth-child(3) { animation-delay: 0.3s; }
+/* ===== FIX HIỂN THỊ CÀI ĐẶT TRÊN MOBILE ===== */
+@media (max-width: 1024px) {
+    /* 1. Mở khóa cuộn trang cho toàn bộ website */
+    html, body {
+        overflow-y: auto !important; /* Cho phép cuộn dọc */
+        height: auto !important;     /* Bỏ chiều cao cố định */
+        min-height: 100vh;           /* Đảm bảo vẫn full màn hình nếu ít nội dung */
+    }
+
+    /* 2. Cho phép khung chính tự giãn chiều cao theo nội dung */
+    .main-container {
+        height: auto !important;
+        display: flex;
+        flex-direction: column; /* Xếp chồng Map lên trên Chat */
+        overflow: visible !important;
+    }
+
+    /* 3. Sửa lỗi quan trọng nhất: Map Section tự giãn ra khi mở Cài đặt */
+    .map-section {
+        height: auto !important;      /* Tự động cao lên khi có nội dung bên trong */
+        max-height: none !important;  /* Bỏ giới hạn chiều cao tối đa */
+        flex: none !important;        /* Ngăn không cho bị co lại */
+        overflow: visible !important; /* Không được ẩn phần thừa */
+    }
+
+    /* 4. Đảm bảo bản đồ vẫn có chiều cao tối thiểu để nhìn thấy */
+    .map-container {
+        min-height: 300px; /* Chiều cao tối thiểu cho bản đồ */
+    }
+
+    /* 5. Tinh chỉnh lại phần Cài đặt */
+    .settings-panel {
+        margin-top: 1rem;
+        padding-bottom: 1rem; /* Thêm đệm dưới đáy để không sát mép */
+    }
+}
